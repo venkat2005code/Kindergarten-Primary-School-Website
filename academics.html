@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* academics.html Unique Layouts */
+        
+        /* 1. Split-screen Hero */
+        .split-hero { display: flex; height: 100vh; min-height: 600px; }
+        .sh-text { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 4rem 10%; background: var(--bg-main); }
+        .sh-img { flex: 1; background: url('images/library_hero.jpeg') center/cover; position: relative; }
+        .sh-img::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, var(--bg-main) 0%, transparent 20%); }
+        [dir="rtl"] .sh-img::before { background: linear-gradient(to left, var(--bg-main) 0%, transparent 20%); }
+
+        /* 2. Interactive Curriculum Explorer (Tabs) */
+        .curr-explorer { max-width: 900px; margin: 0 auto; background: var(--bg-surface); border-radius: 2rem; box-shadow: var(--shadow-lg); overflow: hidden; border: 1px solid var(--border-color); }
+        .curr-tabs { display: flex; background: var(--bg-surface-alt); border-bottom: 1px solid var(--border-color); }
+        .curr-tab { flex: 1; padding: 1.5rem; text-align: center; font-family: var(--font-heading); font-weight: 700; cursor: pointer; transition: var(--transition-fast); border-bottom: 3px solid transparent; }
+        .curr-tab:hover { background: var(--bg-main); }
+        .curr-tab.active { border-bottom-color: var(--primary); color: var(--primary); background: var(--bg-surface); }
+        .curr-content { padding: 4rem; display: none; animation: fadeIn 0.5s ease; }
+        .curr-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 3. Subject Showcase Wall */
+        .subject-wall { display: flex; flex-wrap: wrap; }
+        .sw-item { flex: 1 1 25%; min-width: 250px; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem; border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); transition: var(--transition-normal); }
+        .sw-item:hover { background: var(--primary); color: white; transform: scale(1.05); box-shadow: var(--shadow-lg); z-index: 2; border-color: transparent; border-radius: 1rem; }
+        .sw-icon { font-size: 3rem; margin-bottom: 1rem; color: var(--secondary); transition: var(--transition-fast); }
+        .sw-item:hover .sw-icon { color: white; }
+
+        /* 4. Educational Infographic Layout */
+        .infographic { display: flex; flex-direction: column; align-items: center; position: relative; padding: 4rem 0; }
+        .info-step { display: flex; align-items: center; width: 100%; max-width: 800px; margin-bottom: 2rem; background: var(--bg-surface); padding: 2rem; border-radius: 50px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); position: relative; }
+        .info-num { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; font-weight: bold; flex-shrink: 0; margin-right: 2rem; }
+        [dir="rtl"] .info-num { margin-right: 0; margin-left: 2rem; }
+        .info-connector { position: absolute; left: 50px; top: 100%; width: 4px; height: 2rem; background: var(--border-color); }
+        [dir="rtl"] .info-connector { left: auto; right: 50px; }
+        .info-step:last-child .info-connector { display: none; }
+
+        /* 5. Asymmetrical Grid */
+        .asym-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .ag-item { border-radius: 1.5rem; overflow: hidden; position: relative; box-shadow: var(--shadow-md); }
+        .ag-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-slow); }
+        .ag-item:hover img { transform: scale(1.1); }
+        .ag-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
+        .ag-overlay h3 { color: white; }
+        .ag-large { grid-column: 1 / 3; grid-row: 1 / 3; }
+
+        /* 6. Layered Content Blocks */
+        .layered-blocks { position: relative; padding: 4rem 0; }
+        .lb-card { background: var(--bg-surface); padding: 3rem; border-radius: 1.5rem; box-shadow: var(--shadow-xl); max-width: 600px; position: relative; z-index: 2; margin-left: auto; margin-top: -100px; border: 1px solid var(--border-color); }
+        [dir="rtl"] .lb-card { margin-left: 0; margin-right: auto; }
+        .lb-img { width: 70%; border-radius: 1.5rem; box-shadow: var(--shadow-md); position: relative; z-index: 1; }
+        [dir="rtl"] .lb-img { margin-left: auto; margin-right: 0; }
+
+        @media (max-width: 1024px) {
+            .split-hero { flex-direction: column; }
+            .sh-img { display: none; } /* Simplified for mobile */
+            .asym-grid { grid-template-columns: 1fr 1fr; }
+            .ag-large { grid-column: 1 / -1; grid-row: auto; }
+            .lb-card { margin: 2rem auto 0; max-width: 100%; }
+            .lb-img { width: 100%; }
+        }
+        @media (max-width: 768px) {
+            .info-step { flex-direction: column; text-align: center; border-radius: 1.5rem; }
+            .info-num { margin: 0 0 1rem 0 !important; }
+            .info-connector { left: 50%; transform: translateX(-50%); }
+            [dir="rtl"] .info-connector { right: 50%; transform: translateX(50%); }
+        }
+        @media (max-width: 480px) {
+            .curr-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .curr-tab { flex: 0 0 auto; min-width: 120px; padding: 1rem; }
+            .curr-tabs::-webkit-scrollbar { height: 4px; }
+            .curr-tabs::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="academics.html" class="nav-link" aria-current="page">Academics</a></li>
+                    <li class="nav-item"><a href="admissions.html" class="nav-link">Admissions</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle">LTR</button>
+                <button id="themeToggle" class="tool-btn"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Split-screen Hero -->
+        <section class="split-hero">
+            <div class="sh-text reveal-left">
+                <span class="badge badge-primary" style="align-self: flex-start; margin-bottom: 1rem;">Academic Excellence</span>
+                <h1 class="text-4xl" style="font-size: 4rem; margin-bottom: 1.5rem;">The Learning Journey</h1>
+                <p class="text-lg text-muted" style="max-width: 500px; margin-bottom: 2rem;">A curriculum designed to challenge, inspire, and prepare students for a rapidly changing world.</p>
+                <div><a href="#curriculum" class="btn btn-primary">Explore Curriculum</a></div>
+            </div>
+            <div class="sh-img reveal-right"></div>
+        </section>
+
+        <!-- 2. Interactive Curriculum Explorer -->
+        <section id="curriculum" class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container text-center reveal">
+                <h2 class="text-3xl" style="margin-bottom: 3rem;">Kindergarten Program</h2>
+            </div>
+            <div class="container reveal">
+                <div class="curr-explorer">
+                    <div class="curr-tabs">
+                        <div class="curr-tab active" onclick="openTab(event, 'lang')">Language & Literacy</div>
+                        <div class="curr-tab" onclick="openTab(event, 'math')">Numeracy</div>
+                        <div class="curr-tab" onclick="openTab(event, 'world')">Discovery</div>
+                    </div>
+                    <div id="lang" class="curr-content active">
+                        <h3 class="text-2xl" style="margin-bottom: 1rem;">Building Strong Foundations</h3>
+                        <p class="text-muted text-lg">Through phonics, storytelling, and interactive play, we build a robust foundation in reading and verbal communication.</p>
+                    </div>
+                    <div id="math" class="curr-content">
+                        <h3 class="text-2xl" style="margin-bottom: 1rem;">Numbers are Fun</h3>
+                        <p class="text-muted text-lg">We introduce mathematical concepts through hands-on activities, puzzles, and real-world problem-solving games.</p>
+                    </div>
+                    <div id="world" class="curr-content">
+                        <h3 class="text-2xl" style="margin-bottom: 1rem;">Understanding Our World</h3>
+                        <p class="text-muted text-lg">Basic science and geography are introduced by exploring nature, understanding seasons, and observing the environment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Subject Showcase Wall (Primary) -->
+        <section class="section-padding">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Primary Curriculum</h2>
+            </div>
+            <div class="subject-wall border-color reveal">
+                <div class="sw-item">
+                    <i class="fa-solid fa-calculator sw-icon"></i>
+                    <h4 class="text-xl">Mathematics</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-flask sw-icon"></i>
+                    <h4 class="text-xl">Science</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-book sw-icon"></i>
+                    <h4 class="text-xl">Language Arts</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-earth-americas sw-icon"></i>
+                    <h4 class="text-xl">Social Studies</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-laptop-code sw-icon"></i>
+                    <h4 class="text-xl">Computer Science</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-palette sw-icon"></i>
+                    <h4 class="text-xl">Visual Arts</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-music sw-icon"></i>
+                    <h4 class="text-xl">Music</h4>
+                </div>
+                <div class="sw-item">
+                    <i class="fa-solid fa-volleyball sw-icon"></i>
+                    <h4 class="text-xl">Physical Ed.</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Educational Infographic (Methodology) -->
+        <section class="section-padding" style="background: var(--bg-main);">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Our Teaching Methodology</h2>
+            </div>
+            <div class="container infographic reveal">
+                <div class="info-step">
+                    <div class="info-num">1</div>
+                    <div>
+                        <h4 class="text-xl font-bold">Inquiry-Based Learning</h4>
+                        <p class="text-muted mt-2">We encourage students to ask questions, investigate, and discover answers independently.</p>
+                    </div>
+                    <div class="info-connector"></div>
+                </div>
+                <div class="info-step">
+                    <div class="info-num">2</div>
+                    <div>
+                        <h4 class="text-xl font-bold">Collaborative Projects</h4>
+                        <p class="text-muted mt-2">Teamwork is emphasized to build social skills and diverse problem-solving approaches.</p>
+                    </div>
+                    <div class="info-connector"></div>
+                </div>
+                <div class="info-step">
+                    <div class="info-num">3</div>
+                    <div>
+                        <h4 class="text-xl font-bold">Technology Integration</h4>
+                        <p class="text-muted mt-2">Smartboards and tablets are used thoughtfully to enhance traditional learning methods.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Co-Curricular Activities (Asymmetrical Grid) -->
+        <section class="section-padding">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Beyond the Classroom</h2>
+            </div>
+            <div class="container asym-grid reveal">
+                <div class="ag-item ag-large">
+                    <img src="images/gymnasium.jpeg" alt="Sports">
+                    <div class="ag-overlay">
+                        <h3 class="text-2xl">Athletics & Sports</h3>
+                        <p>Developing physical fitness and teamwork.</p>
+                    </div>
+                </div>
+                <div class="ag-item">
+                    <img src="images/music_class.jpeg" alt="Music">
+                    <div class="ag-overlay">
+                        <h3 class="text-xl">Music Club</h3>
+                    </div>
+                </div>
+                <div class="ag-item">
+                    <img src="images/kindergarten_art.jpeg" alt="Art">
+                    <div class="ag-overlay">
+                        <h3 class="text-xl">Art Studio</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Learning Resources (Layered Content) -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container layered-blocks">
+                <img src="images/library_reading.jpeg" alt="Library" class="lb-img reveal-left">
+                <div class="lb-card reveal-right">
+                    <h2 class="text-3xl text-primary" style="margin-bottom: 1rem;">World-Class Resources</h2>
+                    <p class="text-muted" style="margin-bottom: 1.5rem;">Our campus features an extensive physical library, digital research labs, and dedicated STEM environments that provide students with every tool they need to succeed.</p>
+                    <a href="gallery.html" class="btn btn-outline">View Campus Tour</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

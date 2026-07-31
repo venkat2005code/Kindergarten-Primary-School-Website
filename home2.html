@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Life - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* home2.html Specific Unique Layouts */
+        
+        /* 1. Floating Glassmorphism Hero */
+        .glass-hero {
+            position: relative; height: 100vh; min-height: 800px;
+            background: url('images/unknown_gallery.jpeg') center/cover fixed;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .glass-hero-content {
+            background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+            padding: 4rem; border-radius: 2rem; text-align: center; max-width: 700px;
+            box-shadow: var(--shadow-float); transform: translateY(0); animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+
+        /* 2. Magazine Editorial Layout */
+        .magazine-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; align-items: start; }
+        .mag-lead { grid-column: 1 / 2; }
+        .mag-lead img { width: 100%; height: 500px; object-fit: cover; border-radius: 1rem; margin-bottom: 1.5rem; filter: grayscale(20%); transition: var(--transition-slow); }
+        .mag-lead:hover img { filter: grayscale(0%); }
+        .mag-side { display: flex; flex-direction: column; gap: 2rem; }
+        .mag-side-item { display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .mag-side-item img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+
+        /* 3. Panoramic Showcase */
+        .panoramic { width: 100%; height: 400px; position: relative; overflow: hidden; border-radius: 2rem; margin: 4rem 0; }
+        .panoramic img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 10s linear; }
+        .panoramic:hover img { transform: scale(1.1); }
+        .panoramic-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2rem; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
+        .panoramic-overlay h3 { color: white; }
+
+        /* 4. Circular Activity Hub */
+        .activity-hub { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-top: 3rem; }
+        .hub-circle { width: 220px; height: 220px; border-radius: 50%; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; color: white; cursor: pointer; }
+        .hub-circle img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; transition: var(--transition-normal); }
+        .hub-circle::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2; transition: var(--transition-normal); }
+        .hub-content { position: relative; z-index: 3; padding: 1rem; }
+        .hub-content h4 { color: white; }
+        .hub-circle:hover img { transform: scale(1.1); }
+        .hub-circle:hover::after { background: rgba(var(--primary-dark), 0.7); }
+
+        /* 5. Masonry Review Wall */
+        .masonry-reviews { column-count: 3; column-gap: 2rem; }
+        .review-card { break-inside: avoid; background: var(--bg-surface); padding: 2rem; border-radius: 1.5rem; margin-bottom: 2rem; border: 1px solid var(--border-color); position: relative; }
+        .review-card::before { content: '\201C'; position: absolute; top: -10px; right: 20px; font-size: 5rem; font-family: serif; color: var(--border-color); opacity: 0.5; line-height: 1; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .magazine-grid { grid-template-columns: 1fr; }
+            .masonry-reviews { column-count: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; }
+            .review-card { width: calc(50% - 1rem); margin-bottom: 0; }
+        }
+        @media (max-width: 768px) {
+            .glass-hero-content { margin: 1rem; padding: 2rem; }
+            .masonry-reviews { flex-direction: column; }
+            .review-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false" aria-current="page">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="academics.html" class="nav-link">Academics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admissions.html" class="nav-link">Admissions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="gallery.html" class="nav-link">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle" aria-label="Toggle Layout Direction">LTR</button>
+                <button id="themeToggle" class="tool-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Floating Glassmorphism Hero -->
+        <section class="glass-hero">
+            <div class="glass-hero-content reveal">
+                <h1 class="text-4xl" style="font-size: 3.5rem; margin-bottom: 1rem;">Experience the Campus Life</h1>
+                <p class="text-lg text-muted" style="margin-bottom: 2rem;">A vibrant ecosystem designed to foster joy, curiosity, and lifelong friendships.</p>
+                <button class="btn btn-primary" onclick="document.getElementById('visit').scrollIntoView({behavior: 'smooth'})">Book a Campus Tour</button>
+            </div>
+        </section>
+
+        <!-- 2. Magazine Editorial Layout -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="magazine-grid">
+                    <div class="mag-lead reveal-left">
+                        <img src="images/playground.jpeg" alt="Students playing">
+                        <h2 class="text-3xl" style="margin-bottom: 1rem;">More Than Just Classrooms</h2>
+                        <p class="text-muted text-lg">We believe that a significant portion of learning happens outside the four walls of a classroom. Our campus is a living laboratory where students interact with nature, engage in peer collaborative projects, and develop essential social skills in a safe environment.</p>
+                    </div>
+                    <div class="mag-side reveal-right">
+                        <h3 class="text-2xl" style="margin-bottom: 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; display:inline-block;">Daily Highlights</h3>
+                        
+                        <div class="mag-side-item">
+                            <img src="images/library_reading.jpeg" alt="Reading">
+                            <div>
+                                <h4 class="font-bold">Morning Reading Circle</h4>
+                                <p class="text-sm text-muted">Fostering a love for literature.</p>
+                            </div>
+                        </div>
+                        <div class="mag-side-item">
+                            <img src="images/kindergarten_art.jpeg" alt="Art">
+                            <div>
+                                <h4 class="font-bold">Creative Arts Studio</h4>
+                                <p class="text-sm text-muted">Expressing thoughts through colors.</p>
+                            </div>
+                        </div>
+                        <div class="mag-side-item" style="border:none;">
+                            <img src="images/library_reading.jpeg" alt="Library">
+                            <div>
+                                <h4 class="font-bold">Library Expeditions</h4>
+                                <p class="text-sm text-muted">Discovering new worlds in books.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Panoramic Showcase -->
+        <section class="section-padding" style="background: var(--bg-main);">
+            <div class="container text-center reveal">
+                <h2 class="text-3xl">Immersive Learning Environments</h2>
+                <p class="text-muted" style="margin-top: 1rem;">State-of-the-art facilities designed specifically for early learners.</p>
+                
+                <div class="panoramic">
+                    <img src="images/science_lab.jpeg" alt="Smart Classroom Panoramic">
+                    <div class="panoramic-overlay">
+                        <h3 class="text-2xl">Smart Classrooms</h3>
+                        <p>Equipped with interactive whiteboards and ergonomic furniture.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Circular Activity Hub -->
+        <section class="section-padding">
+            <div class="container">
+                <div class="text-center reveal">
+                    <h2 class="text-3xl">Co-Curricular Activities</h2>
+                </div>
+                <div class="activity-hub reveal">
+                    <div class="hub-circle">
+                        <img src="images/music_class.jpeg" alt="Music">
+                        <div class="hub-content">
+                            <i class="fa-solid fa-music" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                            <h4>Music & Choir</h4>
+                        </div>
+                    </div>
+                    <div class="hub-circle">
+                        <img src="images/gymnasium.jpeg" alt="Sports">
+                        <div class="hub-content">
+                            <i class="fa-solid fa-basketball" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                            <h4>Athletics</h4>
+                        </div>
+                    </div>
+                    <div class="hub-circle">
+                        <img src="images/kindergarten_art.jpeg" alt="Art">
+                        <div class="hub-content">
+                            <i class="fa-solid fa-palette" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                            <h4>Visual Arts</h4>
+                        </div>
+                    </div>
+                    <div class="hub-circle">
+                        <img src="images/interactive_learning.jpeg" alt="Science">
+                        <div class="hub-content">
+                            <i class="fa-solid fa-flask" style="font-size:2rem; margin-bottom:0.5rem;"></i>
+                            <h4>Science Club</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Masonry Review Wall -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container">
+                <h2 class="text-3xl text-center reveal" style="margin-bottom: 4rem;">What Parents Say</h2>
+                
+                <div class="masonry-reviews reveal">
+                    <div class="review-card">
+                        <p class="text-muted" style="margin-bottom: 1.5rem;">"The campus is incredibly vibrant and safe. My son loves the interactive science labs and the vast playground. The teachers are highly communicative via the Parent Portal."</p>
+                        <div class="flex items-center" style="gap:1rem;">
+                            <img src="images/teacher_2.png" style="width:40px; height:40px; border-radius:50%; object-fit: cover;" alt="Emily">
+                            <div><h5 class="font-bold">Emily R.</h5><span class="text-sm text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span></div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="text-muted" style="margin-bottom: 1.5rem;">"We chose LittleStars for its balanced curriculum. The focus on arts alongside academics has really helped our daughter blossom."</p>
+                        <div class="flex items-center" style="gap:1rem;">
+                            <img src="images/teacher_1.png" style="width:40px; height:40px; border-radius:50%; object-fit: cover;" alt="Michael">
+                            <div><h5 class="font-bold">Michael T.</h5><span class="text-sm text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span></div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="text-muted" style="margin-bottom: 1.5rem;">"The daily updates on the ERP dashboard keep us constantly in the loop. It’s comforting to know exactly what they are learning every day."</p>
+                        <div class="flex items-center" style="gap:1rem;">
+                            <img src="images/teacher_female.jpeg" style="width:40px; height:40px; border-radius:50%; object-fit: cover;" alt="Sarah">
+                            <div><h5 class="font-bold">Sarah J.</h5><span class="text-sm text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 6. Schedule a Campus Visit (Interactive grid) -->
+        <section id="visit" class="section-padding">
+            <div class="container text-center reveal">
+                <h2 class="text-3xl text-primary" style="margin-bottom: 1rem;">See It To Believe It</h2>
+                <p class="text-muted" style="max-width: 600px; margin: 0 auto 3rem;">Schedule a personalized campus tour and experience the LittleStars difference firsthand. Choose a preferred date below.</p>
+                
+                <div class="card" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                    <form>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Parent Name</label>
+                            <input type="text" class="search-bar" style="width:100%; padding: 0.75rem 1rem; border:1px solid var(--border-color); border-radius:0.5rem;" placeholder="Enter your name">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display:block; margin-bottom:0.5rem; font-weight:600;">Select Date</label>
+                            <input type="date" style="width:100%; padding: 0.75rem 1rem; border:1px solid var(--border-color); border-radius:0.5rem; background:var(--bg-surface-alt); color:var(--text-main);">
+                        </div>
+                        <button type="button" class="btn btn-primary" style="width:100%;">Request Tour</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

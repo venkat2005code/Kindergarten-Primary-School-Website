@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* contact.html Unique Layouts */
+        
+        /* 1. Hero with floating geometric shapes */
+        .contact-hero { padding: 150px 0 200px; text-align: center; background: var(--bg-surface-alt); position: relative; overflow: hidden; }
+        .ch-shape { position: absolute; opacity: 0.1; }
+        .ch-shape.circle { width: 300px; height: 300px; border-radius: 50%; border: 40px solid var(--primary); top: -50px; left: -100px; }
+        .ch-shape.square { width: 200px; height: 200px; background: var(--secondary); transform: rotate(45deg); bottom: 50px; right: -50px; }
+        .ch-shape.dots { width: 150px; height: 150px; background-image: radial-gradient(var(--text-main) 2px, transparent 2px); background-size: 20px 20px; top: 100px; right: 150px; }
+
+        /* 2. Floating Contact Cards */
+        .contact-cards-wrapper { margin-top: -100px; position: relative; z-index: 10; padding-bottom: 4rem; }
+        .contact-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .cc-item { background: var(--bg-surface); padding: 3rem 2rem; border-radius: 1.5rem; text-align: center; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); transition: var(--transition-normal); }
+        .cc-item:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .cc-icon { width: 70px; height: 70px; background: var(--bg-main); color: var(--primary); font-size: 2rem; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 1.5rem; }
+
+        /* 3. Interactive Campus Map (Illustrative) */
+        .campus-map-section { background: var(--primary); color: white; padding: 4rem 0; overflow: hidden; border-radius: 2rem; margin: 4rem 0; position: relative; }
+        .cm-layout { display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 0 4rem; }
+        .cm-text { flex: 1; }
+        .cm-graphic { flex: 1.5; position: relative; height: 400px; background: url('images/campus_map.jpeg') center/cover no-repeat; border-radius: 1.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+        .cm-marker { position: absolute; background: white; color: var(--primary); padding: 0.5rem 1rem; border-radius: 2rem; font-weight: bold; cursor: pointer; animation: float 3s ease-in-out infinite; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .cm-marker::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; border-color: white transparent transparent transparent; }
+        .cm-marker:nth-of-type(1) { top: 30%; left: 15%; animation-delay: 0s; }
+        .cm-marker:nth-of-type(2) { top: 60%; left: 40%; animation-delay: 1s; }
+        .cm-marker:nth-of-type(3) { top: 40%; right: 15%; animation-delay: 2s; }
+
+        /* 4. Multi-step Enquiry Form */
+        .enquiry-layout { display: flex; background: var(--bg-surface); border-radius: 2rem; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); }
+        .eq-side { flex: 1; background: url('images/teacher_science.jpeg') center/cover; position: relative; }
+        .eq-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6)); }
+        .eq-side-content { position: relative; z-index: 1; padding: 4rem; color: white; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .eq-side-content h3 { color: white; }
+        .eq-form-wrap { flex: 1.5; padding: 4rem; }
+        .eq-form .input-group { margin-bottom: 1.5rem; }
+        .eq-form label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        .eq-form input, .eq-form select, .eq-form textarea { width: 100%; padding: 1rem; border: 1px solid var(--border-color); border-radius: 0.5rem; background: var(--bg-main); color: var(--text-main); font-family: inherit; }
+        .eq-form textarea { height: 120px; resize: none; }
+
+        /* 5. FAQ Accordion Dashboard */
+        .faq-dashboard { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+        .faq-nav { background: var(--bg-surface); padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--border-color); position: sticky; top: 100px; }
+        .faq-nav-item { padding: 1rem; border-bottom: 1px solid var(--border-color); font-weight: 500; cursor: pointer; transition: var(--transition-fast); }
+        .faq-nav-item:last-child { border-bottom: none; }
+        .faq-nav-item:hover, .faq-nav-item.active { color: var(--primary); padding-left: 1.5rem; }
+        [dir="rtl"] .faq-nav-item:hover, [dir="rtl"] .faq-nav-item.active { padding-left: 1rem; padding-right: 1.5rem; }
+        .faq-item { background: var(--bg-surface); margin-bottom: 1rem; border-radius: 1rem; border: 1px solid var(--border-color); overflow: hidden; }
+        .faq-q { padding: 1.5rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .faq-a { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; color: var(--text-muted); }
+        .faq-item.open .faq-a { padding: 0 1.5rem 1.5rem; max-height: 500px; }
+        .faq-item.open .faq-q i { transform: rotate(180deg); }
+
+        /* 6. Curved Bottom Map CTA */
+        .map-cta { position: relative; height: 500px; margin-top: 4rem; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .map-cta iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; filter: grayscale(100%) contrast(1.2); opacity: 0.6; }
+        .map-cta-content { position: relative; z-index: 1; background: var(--bg-surface); padding: 3rem 4rem; border-radius: 2rem; text-align: center; box-shadow: var(--shadow-xl); border: 1px solid var(--border-color); }
+        .curve-top { position: absolute; top: -1px; left: 0; width: 100%; overflow: hidden; line-height: 0; z-index: 2; }
+        .curve-top svg { display: block; width: calc(100% + 1.3px); height: 50px; }
+        .curve-top .shape-fill { fill: var(--bg-main); }
+
+        @media (max-width: 1024px) {
+            .contact-cards { grid-template-columns: 1fr; }
+            .cm-layout { flex-direction: column; padding: 2rem; align-items: stretch; text-align: center; }
+            .cm-graphic { width: 100%; min-height: 350px; }
+            .enquiry-layout { flex-direction: column; }
+            .faq-dashboard { grid-template-columns: 1fr; }
+            .faq-nav { position: relative; top: 0; margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="academics.html" class="nav-link">Academics</a></li>
+                    <li class="nav-item"><a href="admissions.html" class="nav-link">Admissions</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link" aria-current="page">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle">LTR</button>
+                <button id="themeToggle" class="tool-btn"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero with geometric shapes -->
+        <section class="contact-hero">
+            <div class="ch-shape circle"></div>
+            <div class="ch-shape square"></div>
+            <div class="ch-shape dots"></div>
+            <div class="container reveal">
+                <h1 class="text-4xl" style="font-size: 4rem; margin-bottom: 1rem;">Get In Touch</h1>
+                <p class="text-muted text-lg" style="max-width: 600px; margin: 0 auto;">We are here to answer any questions you may have. Reach out to us and we'll respond as soon as we can.</p>
+            </div>
+        </section>
+
+        <!-- 2. Floating Contact Cards -->
+        <section class="contact-cards-wrapper container reveal">
+            <div class="contact-cards">
+                <div class="cc-item">
+                    <div class="cc-icon"><i class="fa-solid fa-phone"></i></div>
+                    <h3 class="text-xl mb-2">Phone</h3>
+                    <p class="text-muted">Mon - Fri, 8am to 5pm</p>
+                    <p class="font-bold text-lg mt-2">+1 (555) 123-4567</p>
+                </div>
+                <div class="cc-item">
+                    <div class="cc-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <h3 class="text-xl mb-2">Email</h3>
+                    <p class="text-muted">We reply within 24 hours</p>
+                    <p class="font-bold text-lg mt-2">admissions@littlestars.edu</p>
+                </div>
+                <div class="cc-item">
+                    <div class="cc-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3 class="text-xl mb-2">Address</h3>
+                    <p class="text-muted">Visit our main campus</p>
+                    <p class="font-bold text-lg mt-2">123 Education Lane<br>Learning City, 90210</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Interactive Campus Map -->
+        <section class="container">
+            <div class="campus-map-section reveal">
+                <div class="cm-layout">
+                    <div class="cm-text">
+                        <h2 class="text-3xl mb-4">Navigating Our Campus</h2>
+                        <p class="text-lg mb-4" style="color:rgba(255,255,255,0.9);">Our campus is spread across 15 acres of lush greenery, featuring distinct zones for different age groups to ensure safety and specialized learning.</p>
+                        <button class="btn btn-outline" style="color:white; border-color:white;">Download Campus Map PDF</button>
+                    </div>
+                    <div class="cm-graphic">
+                        <div class="cm-marker">Sports Complex</div>
+                        <div class="cm-marker">Main Library</div>
+                        <div class="cm-marker">Science Lab</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Multi-step Enquiry Form -->
+        <section class="section-padding">
+            <div class="container reveal">
+                <div class="text-center" style="margin-bottom: 4rem;">
+                    <h2 class="text-3xl">Send an Enquiry</h2>
+                </div>
+                <div class="enquiry-layout">
+                    <div class="eq-side">
+                        <div class="eq-side-content">
+                            <h3 class="text-3xl mb-4">Let's start a conversation.</h3>
+                            <p class="text-lg" style="color:rgba(255,255,255,0.8);">Fill out the form to request a prospectus, schedule a callback, or ask specific questions about the curriculum.</p>
+                        </div>
+                    </div>
+                    <div class="eq-form-wrap">
+                        <form class="eq-form">
+                            <div class="flex" style="gap: 1rem;">
+                                <div class="input-group" style="flex:1;">
+                                    <label>Parent Name *</label>
+                                    <input type="text" placeholder="John Doe" required>
+                                </div>
+                                <div class="input-group" style="flex:1;">
+                                    <label>Email Address *</label>
+                                    <input type="email" placeholder="john@example.com" required>
+                                </div>
+                            </div>
+                            <div class="flex" style="gap: 1rem;">
+                                <div class="input-group" style="flex:1;">
+                                    <label>Phone Number</label>
+                                    <input type="tel" placeholder="+1 234 567 8900">
+                                </div>
+                                <div class="input-group" style="flex:1;">
+                                    <label>Interest Grade *</label>
+                                    <select required>
+                                        <option value="">Select Grade</option>
+                                        <option value="prek">Pre-K</option>
+                                        <option value="kg">Kindergarten</option>
+                                        <option value="g1">Grade 1</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Your Message</label>
+                                <textarea placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. FAQ Accordion Dashboard -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container">
+                <div class="text-center reveal" style="margin-bottom: 4rem;">
+                    <h2 class="text-3xl">Frequently Asked Questions</h2>
+                </div>
+                <div class="faq-dashboard reveal">
+                    <div class="faq-nav">
+                        <div class="faq-nav-item active">Admissions</div>
+                        <div class="faq-nav-item">Academics & Curriculum</div>
+                        <div class="faq-nav-item">Facilities & Transport</div>
+                        <div class="faq-nav-item">Fees & Scholarships</div>
+                    </div>
+                    <div class="faq-content">
+                        <div class="faq-item">
+                            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                                What is the teacher-to-student ratio? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-a">
+                                <p>In Kindergarten, our ratio is 1:12 to ensure personalized attention. In Primary grades, the ratio is 1:20.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                                Do you provide school transportation? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-a">
+                                <p>Yes, we offer a comprehensive bus service covering a 15-mile radius around the campus. All buses are equipped with GPS tracking accessible via the Parent Portal.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+                                Are meals provided at school? <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-a">
+                                <p>We offer an optional hot lunch program prepared daily by our in-house nutritionists. Vegetarian and allergy-friendly options are always available.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Curved Google Map CTA -->
+        <section class="map-cta">
+            <div class="curve-top">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+                </svg>
+            </div>
+            <!-- Placeholder image for map background -->
+            <img src="images/campus_map.jpeg" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.3; filter: grayscale(50%);">
+            <div class="map-cta-content reveal">
+                <h3 class="text-3xl mb-4">Come See For Yourself</h3>
+                <p class="text-muted mb-4">Book a personalized guided tour today.</p>
+                <a href="admissions.html" class="btn btn-primary">Book a Tour</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

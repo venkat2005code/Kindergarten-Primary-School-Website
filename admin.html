@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School ERP - LittleStars</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .erp-profile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+        .erp-profile-card { background: var(--bg-surface); border-radius: 1rem; padding: 1.5rem; text-align: center; border: 1px solid var(--border-color); }
+        .erp-profile-card img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; border: 3px solid var(--bg-surface-alt); }
+        .circular-grid { grid-template-columns: 1fr 2fr; }
+        @media(max-width: 1024px) {
+            .circular-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" role="navigation" aria-label="Admin Sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo text-xl">
+                <i class="fa-solid fa-shapes"></i> LittleStars ERP
+            </a>
+            <button class="sidebar-close" aria-label="Close Sidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-group">Dashboard</div>
+            <a href="#analytics" class="menu-link active"><i class="fa-solid fa-chart-line"></i> <span>Analytics Overview</span></a>
+            
+            <div class="menu-group">Core Management</div>
+            <a href="#students" class="menu-link"><i class="fa-solid fa-user-graduate"></i> <span>Student Mgmt</span></a>
+            <a href="#teachers" class="menu-link"><i class="fa-solid fa-chalkboard-user"></i> <span>Teacher Mgmt</span></a>
+            <a href="#admissions" class="menu-link"><i class="fa-solid fa-file-signature"></i> <span>Admissions Pipeline</span></a>
+            
+            <div class="menu-group">Operations</div>
+            <a href="#attendance" class="menu-link"><i class="fa-solid fa-clipboard-user"></i> <span>Staff Attendance</span></a>
+            <a href="#allocation" class="menu-link"><i class="fa-solid fa-door-open"></i> <span>Class Allocation</span></a>
+            <a href="#inventory" class="menu-link"><i class="fa-solid fa-boxes-stacked"></i> <span>Inventory & Assets</span></a>
+            
+            <div class="menu-group">Communication</div>
+            <a href="#circulars" class="menu-link"><i class="fa-solid fa-file-contract"></i> <span>Circulars</span></a>
+            <a href="#holidays" class="menu-link"><i class="fa-solid fa-umbrella-beach"></i> <span>Holidays</span></a>
+        </div>
+    </aside>
+
+    <div class="dashboard-wrapper">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="breadcrumbs">
+                    <span>School ERP</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                    <span id="breadcrumbActive" class="active">Analytics Overview</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search students, staff...">
+                </div>
+                
+                <button id="rtlToggle" class="tool-btn lang-toggle" style="height: 36px;">LTR</button>
+                <button id="themeToggle" class="tool-btn" style="height: 36px; width: 36px;">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <div class="profile-dropdown">
+                    <img src="images/teacher_female.jpeg" alt="Admin Profile" class="profile-img">
+                    <div class="profile-info">
+                        <span class="profile-name">Admin Portal</span>
+                        <span class="profile-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            
+            <!-- SECTION: ANALYTICS -->
+            <section id="analytics" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">School Analytics</h2>
+                        <p class="ds-desc">High-level statistics for the current academic year.</p>
+                    </div>
+                </div>
+
+                <div class="kpi-grid" style="margin-bottom: 2rem;">
+                    <div class="card kpi-card">
+                        <div class="kpi-icon primary"><i class="fa-solid fa-user-graduate"></i></div>
+                        <div class="kpi-info">
+                            <h4><span class="counter" data-target="1250">0</span></h4>
+                            <p>Total Students</p>
+                            <span class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +5.2%</span>
+                        </div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-icon secondary"><i class="fa-solid fa-chalkboard-user"></i></div>
+                        <div class="kpi-info">
+                            <h4><span class="counter" data-target="85">0</span></h4>
+                            <p>Total Staff</p>
+                            <span class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +2.1%</span>
+                        </div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-icon success"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="kpi-info">
+                            <h4>$<span class="counter" data-target="450">0</span>k</h4>
+                            <p>Revenue Collection</p>
+                            <span class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +12%</span>
+                        </div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-icon warning"><i class="fa-solid fa-file-signature"></i></div>
+                        <div class="kpi-info">
+                            <h4><span class="counter" data-target="142">0</span></h4>
+                            <p>New Admissions</p>
+                            <span class="kpi-trend down"><i class="fa-solid fa-arrow-down"></i> -1.5%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: STUDENT MANAGEMENT -->
+            <section id="students" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Student Management</h2>
+                        <p class="ds-desc">Complete directory of enrolled students.</p>
+                    </div>
+                    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Student</button>
+                </div>
+                
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student Name</th>
+                                <th>Class</th>
+                                <th>Parent Name</th>
+                                <th>Contact</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>STU-001</td>
+                                <td><strong>Emma Jenkins</strong></td>
+                                <td>Grade 4 - A</td>
+                                <td>Sarah Jenkins</td>
+                                <td>+1 555-0192</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><button class="btn btn-outline" style="padding:0.25rem 0.5rem;"><i class="fa-solid fa-pen"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>STU-002</td>
+                                <td><strong>Lucas Martin</strong></td>
+                                <td>Grade 2 - B</td>
+                                <td>David Martin</td>
+                                <td>+1 555-9281</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td><button class="btn btn-outline" style="padding:0.25rem 0.5rem;"><i class="fa-solid fa-pen"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>STU-003</td>
+                                <td><strong>Sophia Patel</strong></td>
+                                <td>Grade 5 - A</td>
+                                <td>Raj Patel</td>
+                                <td>+1 555-4728</td>
+                                <td><span class="badge badge-warning">On Leave</span></td>
+                                <td><button class="btn btn-outline" style="padding:0.25rem 0.5rem;"><i class="fa-solid fa-pen"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION: TEACHER MANAGEMENT (Profile Grid) -->
+            <section id="teachers" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Teacher Management</h2>
+                        <p class="ds-desc">Manage academic staff profiles and assignments.</p>
+                    </div>
+                    <button class="btn btn-secondary"><i class="fa-solid fa-plus"></i> Add Teacher</button>
+                </div>
+                
+                <div class="erp-profile-grid">
+                    <div class="erp-profile-card">
+                        <img src="images/teacher_female.jpeg" alt="Teacher">
+                        <h4 class="font-bold">Mrs. Eleanor Rigby</h4>
+                        <p class="text-sm text-primary" style="margin-bottom:1rem;">Head of Mathematics</p>
+                        <div class="flex justify-center" style="gap:0.5rem;">
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-envelope"></i></button>
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-calendar"></i></button>
+                        </div>
+                    </div>
+                    <div class="erp-profile-card">
+                        <img src="images/teacher_female.jpeg" alt="Teacher">
+                        <h4 class="font-bold">Mr. John Smith</h4>
+                        <p class="text-sm text-primary" style="margin-bottom:1rem;">Science Coordinator</p>
+                        <div class="flex justify-center" style="gap:0.5rem;">
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-envelope"></i></button>
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-calendar"></i></button>
+                        </div>
+                    </div>
+                    <div class="erp-profile-card">
+                        <img src="images/teacher_female.jpeg" alt="Teacher">
+                        <h4 class="font-bold">Ms. Alice Wong</h4>
+                        <p class="text-sm text-primary" style="margin-bottom:1rem;">Kindergarten Lead</p>
+                        <div class="flex justify-center" style="gap:0.5rem;">
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-envelope"></i></button>
+                            <button class="btn btn-outline" style="padding:0.25rem 0.75rem;"><i class="fa-solid fa-calendar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: ADMISSIONS PIPELINE (Kanban) -->
+            <section id="admissions" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Admissions Pipeline</h2>
+                        <p class="ds-desc">Track prospective student applications.</p>
+                    </div>
+                </div>
+                
+                <div class="kanban-board">
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>New Applications</span>
+                            <span class="badge badge-primary">4</span>
+                        </div>
+                        <div class="kanban-card">
+                            <h4>William Taylor</h4>
+                            <p class="text-sm text-muted">Grade 1 Application</p>
+                            <div class="kanban-meta"><span>Submitted 2h ago</span></div>
+                        </div>
+                        <div class="kanban-card">
+                            <h4>Olivia Brown</h4>
+                            <p class="text-sm text-muted">Kindergarten App</p>
+                            <div class="kanban-meta"><span>Submitted 5h ago</span></div>
+                        </div>
+                    </div>
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>In Review</span>
+                            <span class="badge badge-warning">2</span>
+                        </div>
+                        <div class="kanban-card">
+                            <h4>James Wilson</h4>
+                            <p class="text-sm text-muted">Grade 3 Application</p>
+                            <div class="kanban-meta"><span>Reviewing Documents</span></div>
+                        </div>
+                    </div>
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>Interview Scheduled</span>
+                            <span class="badge badge-info">1</span>
+                        </div>
+                        <div class="kanban-card">
+                            <h4>Isabella Davis</h4>
+                            <p class="text-sm text-muted">Grade 5 Application</p>
+                            <div class="kanban-meta"><span>Tomorrow, 10:00 AM</span></div>
+                        </div>
+                    </div>
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>Approved</span>
+                            <span class="badge badge-success">5</span>
+                        </div>
+                        <div class="kanban-card" style="opacity:0.7;">
+                            <h4>Noah Miller</h4>
+                            <p class="text-sm text-muted">Awaiting Fee Payment</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: CIRCULARS (Document upload UI) -->
+            <section id="circulars" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Circular Management</h2>
+                        <p class="ds-desc">Upload and distribute official documents.</p>
+                    </div>
+                </div>
+                
+                <div class="grid circular-grid">
+                    <div class="card" style="border: 2px dashed var(--border-color); display:flex; flex-direction:column; align-items:center; justify-content:center; padding: 3rem;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size:3rem; color:var(--primary); margin-bottom:1rem;"></i>
+                        <h4 class="font-bold">Drag & Drop Circulars Here</h4>
+                        <p class="text-sm text-muted" style="margin-bottom:1rem;">PDF, DOCX up to 10MB</p>
+                        <button class="btn btn-outline">Browse Files</button>
+                    </div>
+                    
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Document Title</th>
+                                    <th>Date</th>
+                                    <th>Audience</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fa-solid fa-file-pdf text-danger"></i> Term 1 Exam Guidelines</td>
+                                    <td>12 Oct 2026</td>
+                                    <td><span class="badge badge-primary">All Parents</span></td>
+                                    <td><button class="btn btn-outline" style="padding:0.25rem 0.5rem;"><i class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa-solid fa-file-word text-info"></i> Winter Break Notice</td>
+                                    <td>05 Oct 2026</td>
+                                    <td><span class="badge badge-success">Staff Only</span></td>
+                                    <td><button class="btn btn-outline" style="padding:0.25rem 0.5rem;"><i class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

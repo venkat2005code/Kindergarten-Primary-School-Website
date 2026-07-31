@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container { display: flex; min-height: 100vh; background: var(--bg-main); flex-direction: row-reverse; }
+        .auth-form-side { flex: 1.2; display: flex; flex-direction: column; padding: 4rem; position: relative; overflow-y: auto; }
+        .auth-img-side { flex: 1; background: url('images/teacher_female.jpeg') center/cover; position: relative; display: flex; align-items: flex-end; padding: 4rem; }
+        .auth-img-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(var(--primary-dark), 0.9), transparent); }
+        .auth-img-content { position: relative; z-index: 1; color: white; max-width: 500px; }
+        
+        .auth-form-side::before, .auth-form-side::after { content: ''; flex: 1; min-height: 0; }
+        .auth-card { max-width: 550px; width: 100%; margin: 0 auto; }
+        .auth-header { text-align: center; margin-bottom: 2.5rem; }
+        .auth-header .logo { display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1rem; }
+        
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; position: relative; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main); }
+        .form-group input { width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid var(--border-color); border-radius: 0.75rem; background: var(--bg-surface); color: var(--text-main); transition: var(--transition-fast); }
+        .form-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(var(--primary-dark), 0.1); }
+        .form-group i { position: absolute; left: 1rem; bottom: 1.1rem; color: var(--text-muted); }
+        [dir="rtl"] .form-group input { padding: 1rem 3rem 1rem 1rem; }
+        [dir="rtl"] .form-group i { left: auto; right: 1rem; }
+
+        .auth-tools { position: absolute; top: 2rem; right: 2rem; display: flex; gap: 1rem; }
+        [dir="rtl"] .auth-tools { right: auto; left: 2rem; }
+
+        @media (max-width: 1024px) {
+            .auth-container { flex-direction: column; }
+            .auth-img-side { display: none; }
+            .auth-form-side { padding: 2rem; }
+            .form-grid { grid-template-columns: 1fr; gap: 0; }
+        }
+        @media (max-width: 480px) {
+            .auth-tools { top: 1rem; right: 1rem; gap: 0.5rem; }
+            .auth-form-side { padding-top: 4rem; }
+            .auth-header .logo { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Floating Tools (Theme & RTL) -->
+        <div class="auth-tools">
+            <button id="rtlToggle" class="tool-btn lang-toggle" aria-label="Toggle Layout Direction">LTR</button>
+            <button id="themeToggle" class="tool-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+        </div>
+
+        <div class="auth-form-side">
+            <div class="auth-card reveal">
+                <div class="auth-header">
+                    <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+                    <h2 class="text-3xl mt-2">Create Parent Account</h2>
+                    <p class="text-muted mt-2">Join our community and gain access to the Parent Portal.</p>
+                </div>
+
+                <form action="dashboard.html" method="GET">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <i class="fa-regular fa-user"></i>
+                            <input type="text" placeholder="Doe" required>
+                        </div>
+                        <div class="form-group full">
+                            <label>Email Address</label>
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group full">
+                            <label>Phone Number</label>
+                            <i class="fa-solid fa-phone"></i>
+                            <input type="tel" placeholder="+1 (555) 000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="••••••••" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--text-muted);">
+                        <label style="display:flex; align-items:start; gap:0.5rem; cursor:pointer;">
+                            <input type="checkbox" required style="margin-top:0.2rem;">
+                            <span>I agree to the <a href="#" class="text-primary font-bold">Terms of Service</a> and <a href="#" class="text-primary font-bold">Privacy Policy</a> of LittleStars School.</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Create Account</button>
+                </form>
+                
+                <p class="text-center text-muted mt-4">Already have an account? <a href="login.html" class="text-primary font-bold">Sign in here</a></p>
+            </div>
+        </div>
+        
+        <div class="auth-img-side">
+            <div class="auth-img-content reveal-left">
+                <span class="badge badge-primary mb-4" style="background: white; color: var(--primary);">Join Us</span>
+                <h2 class="text-4xl mb-4">Start your child's journey today.</h2>
+                <p class="text-lg">Creating an account takes less than a minute and grants you full access to our online admission wizard.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

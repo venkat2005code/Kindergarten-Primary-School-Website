@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admissions - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* admissions.html Unique Layouts */
+        
+        /* 1. Full-screen Storytelling Hero */
+        .story-hero { height: 90vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/campus_exterior.jpeg') center/cover fixed; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 2rem; position: relative; }
+        .story-hero-content { max-width: 800px; animation: slideUp 1s ease; }
+        .story-hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; color: white; }
+        .story-hero p { font-size: 1.25rem; opacity: 0.9; margin-bottom: 2rem; }
+        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); font-size: 2rem; color: white; animation: bounce 2s infinite; }
+        @keyframes slideUp { from { opacity:0; transform: translateY(50px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); } 40% { transform: translateY(-20px) translateX(-50%); } 60% { transform: translateY(-10px) translateX(-50%); } }
+
+        /* 2. Zig-Zag Process Flow */
+        .zigzag-process { display: flex; flex-direction: column; gap: 4rem; padding: 4rem 0; }
+        .zz-row { display: flex; align-items: center; gap: 4rem; }
+        .zz-row:nth-child(even) { flex-direction: row-reverse; }
+        .zz-img { flex: 1; border-radius: 1.5rem; overflow: hidden; box-shadow: var(--shadow-lg); }
+        .zz-img img { width: 100%; height: 350px; object-fit: cover; }
+        .zz-text { flex: 1; position: relative; }
+        .zz-num { position: absolute; font-size: 8rem; font-weight: 800; color: var(--border-color); opacity: 0.3; top: -50px; left: -20px; z-index: -1; line-height: 1; }
+
+        /* 3. Eligibility Comparison Cards */
+        .eligibility-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .el-card { background: var(--bg-surface); padding: 3rem; border-radius: 1.5rem; text-align: center; border: 1px solid var(--border-color); transition: var(--transition-normal); }
+        .el-card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: var(--shadow-xl); }
+        .el-icon { font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem; }
+        @media (min-width: 650px) and (max-width: 1024px) {
+            .eligibility-grid { grid-template-columns: 1fr 1fr; }
+            .el-card:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 1rem); justify-self: center; }
+        }
+
+        /* 4. Checklist Dashboard Layout */
+        .doc-checklist { background: var(--bg-surface-alt); padding: 4rem; border-radius: 2rem; display: flex; gap: 4rem; border: 1px solid var(--border-color); }
+        .dc-intro { flex: 1; }
+        .dc-list { flex: 1.5; background: var(--bg-surface); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-sm); }
+        .dc-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border-color); }
+        .dc-item:last-child { border-bottom: none; }
+        .dc-check { width: 30px; height: 30px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        /* 5. Premium Pricing Tables */
+        .pricing-grid { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+        .price-card { background: var(--bg-surface); border-radius: 2rem; padding: 3rem; width: 350px; text-align: center; border: 1px solid var(--border-color); position: relative; }
+        .price-card.premium { border-color: var(--primary); box-shadow: var(--shadow-2xl); transform: scale(1.05); z-index: 2; }
+        .price-card.premium::before { content: 'Most Popular'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.5rem 1.5rem; border-radius: 2rem; font-size: 0.8rem; font-weight: bold; }
+        .price-amt { font-size: 3.5rem; font-weight: 800; font-family: var(--font-heading); margin: 1.5rem 0; color: var(--text-main); }
+        .price-amt span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        .price-features { list-style: none; padding: 0; margin: 2rem 0; text-align: left; }
+        .price-features li { padding: 0.5rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
+        .price-features li i { color: var(--success); margin-right: 0.5rem; }
+        [dir="rtl"] .price-features li i { margin-right: 0; margin-left: 0.5rem; }
+
+        /* 6. Floating Application Wizard Card CTA */
+        .wizard-cta { padding: 6rem 0; background: var(--bg-main); position: relative; }
+        .wizard-card { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 2rem; padding: 4rem; color: white; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); max-width: 900px; margin: 0 auto; position: relative; overflow: hidden; }
+        .wizard-card::after { content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 200%; background: rgba(255,255,255,0.1); transform: rotate(30deg); pointer-events: none; }
+        .wizard-btn { background: white; color: var(--primary); font-weight: bold; font-size: 1.25rem; padding: 1rem 3rem; border-radius: 3rem; transition: var(--transition-normal); border: none; cursor: pointer; display: inline-block; margin-top: 2rem; }
+        .wizard-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+        @media (max-width: 1024px) {
+            .story-hero h1 { font-size: 3.5rem; }
+            .zz-row, .zz-row:nth-child(even) { flex-direction: column; gap: 2rem; }
+            .zz-text { text-align: center; }
+            .zz-num { left: 50%; transform: translateX(-50%); top: -40px; }
+            .doc-checklist { flex-direction: column; padding: 2rem; }
+            .price-card.premium { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="academics.html" class="nav-link">Academics</a></li>
+                    <li class="nav-item"><a href="admissions.html" class="nav-link" aria-current="page">Admissions</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle">LTR</button>
+                <button id="themeToggle" class="tool-btn"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Full-screen Storytelling Hero -->
+        <section class="story-hero">
+            <div class="story-hero-content">
+                <h1>Join Our Community</h1>
+                <p>Take the first step towards providing your child with an education that inspires, challenges, and nurtures.</p>
+                <a href="#apply" class="btn btn-primary" style="font-size:1.2rem; padding: 1rem 2.5rem;">Apply for 2026-2027</a>
+            </div>
+            <a href="#process" class="scroll-indicator"><i class="fa-solid fa-chevron-down"></i></a>
+        </section>
+
+        <!-- 2. Admission Process (Zig-Zag) -->
+        <section id="process" class="section-padding">
+            <div class="container">
+                <div class="text-center reveal" style="margin-bottom: 4rem;">
+                    <h2 class="text-3xl">How to Apply</h2>
+                    <p class="text-muted mt-2">A simple, transparent 3-step process.</p>
+                </div>
+                
+                <div class="zigzag-process">
+                    <div class="zz-row reveal-left">
+                        <div class="zz-img"><img src="images/parent_portal.jpeg" alt="Online Form"></div>
+                        <div class="zz-text">
+                            <span class="zz-num">01</span>
+                            <h3 class="text-3xl mb-2">Submit Application</h3>
+                            <p class="text-muted text-lg">Complete the online application form via our portal and pay the non-refundable registration fee. Our admissions team will review your submission within 48 hours.</p>
+                        </div>
+                    </div>
+                    <div class="zz-row reveal-right">
+                        <div class="zz-img"><img src="images/campus_exterior.jpeg" alt="Campus Tour"></div>
+                        <div class="zz-text">
+                            <span class="zz-num">02</span>
+                            <h3 class="text-3xl mb-2">Campus Visit & Interaction</h3>
+                            <p class="text-muted text-lg">Once shortlisted, you and your child will be invited for a campus tour and a friendly interaction session with our educators to ensure a mutual fit.</p>
+                        </div>
+                    </div>
+                    <div class="zz-row reveal-left">
+                        <div class="zz-img"><img src="images/hero_blocks.jpeg" alt="Enrollment"></div>
+                        <div class="zz-text">
+                            <span class="zz-num">03</span>
+                            <h3 class="text-3xl mb-2">Enrollment Offer</h3>
+                            <p class="text-muted text-lg">Successful candidates will receive an official offer letter. Accept the offer by submitting the required documents and first term fees to secure the seat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Eligibility Criteria -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container">
+                <div class="text-center reveal" style="margin-bottom: 4rem;">
+                    <h2 class="text-3xl">Eligibility Criteria</h2>
+                    <p class="text-muted mt-2">Age requirements for the upcoming academic year.</p>
+                </div>
+                
+                <div class="eligibility-grid reveal">
+                    <div class="el-card">
+                        <i class="fa-solid fa-baby el-icon"></i>
+                        <h3 class="text-2xl mb-2">Pre-K</h3>
+                        <p class="text-xl font-bold text-primary mb-2">Age 3+</p>
+                        <p class="text-muted">Must be 3 years old by September 1st.</p>
+                    </div>
+                    <div class="el-card">
+                        <i class="fa-solid fa-child el-icon"></i>
+                        <h3 class="text-2xl mb-2">Kindergarten</h3>
+                        <p class="text-xl font-bold text-primary mb-2">Age 4-5</p>
+                        <p class="text-muted">Must be 4 or 5 years old by September 1st.</p>
+                    </div>
+                    <div class="el-card">
+                        <i class="fa-solid fa-child-reaching el-icon"></i>
+                        <h3 class="text-2xl mb-2">Primary (G1-G5)</h3>
+                        <p class="text-xl font-bold text-primary mb-2">Age 6+</p>
+                        <p class="text-muted">Previous academic records required for transfer.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Required Documents Checklist -->
+        <section class="section-padding">
+            <div class="container reveal">
+                <div class="doc-checklist">
+                    <div class="dc-intro">
+                        <h2 class="text-3xl mb-4">Required Documents</h2>
+                        <p class="text-muted text-lg mb-4">Please prepare digital copies of these documents before starting your online application. Formats accepted: PDF, JPG, PNG (Max 5MB per file).</p>
+                        <button class="btn btn-outline"><i class="fa-solid fa-download"></i> Download Checklist PDF</button>
+                    </div>
+                    <div class="dc-list">
+                        <div class="dc-item">
+                            <div class="dc-check"><i class="fa-solid fa-check"></i></div>
+                            <span class="font-bold">Child's Birth Certificate</span>
+                        </div>
+                        <div class="dc-item">
+                            <div class="dc-check"><i class="fa-solid fa-check"></i></div>
+                            <span class="font-bold">Recent Passport Size Photographs (x4)</span>
+                        </div>
+                        <div class="dc-item">
+                            <div class="dc-check"><i class="fa-solid fa-check"></i></div>
+                            <span class="font-bold">Vaccination & Medical Records</span>
+                        </div>
+                        <div class="dc-item">
+                            <div class="dc-check"><i class="fa-solid fa-check"></i></div>
+                            <span class="font-bold">Parents' Government ID Proof</span>
+                        </div>
+                        <div class="dc-item">
+                            <div class="dc-check" style="background:var(--border-color); color:var(--text-muted);"><i class="fa-solid fa-minus"></i></div>
+                            <span>Previous School Report Card (Grade 1+ only)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Premium Fee Structure -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container">
+                <div class="text-center reveal" style="margin-bottom: 4rem;">
+                    <h2 class="text-3xl">Fee Structure (2026-2027)</h2>
+                    <p class="text-muted mt-2">Transparent pricing with no hidden costs.</p>
+                </div>
+                
+                <div class="pricing-grid reveal">
+                    <div class="price-card">
+                        <h3 class="text-xl">Pre-K</h3>
+                        <div class="price-amt">$4,500<span>/term</span></div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                            <li><i class="fa-solid fa-check"></i> Learning Materials</li>
+                            <li><i class="fa-solid fa-check"></i> Daily Snacks</li>
+                            <li><i class="fa-solid fa-xmark" style="color:var(--danger);"></i> Transportation (Optional)</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%;">Enquire Now</button>
+                    </div>
+                    
+                    <div class="price-card premium">
+                        <h3 class="text-xl">Kindergarten</h3>
+                        <div class="price-amt">$5,200<span>/term</span></div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                            <li><i class="fa-solid fa-check"></i> Learning Materials & Tech Fee</li>
+                            <li><i class="fa-solid fa-check"></i> Daily Snacks & Hot Lunch</li>
+                            <li><i class="fa-solid fa-check"></i> Local Field Trips</li>
+                        </ul>
+                        <button class="btn btn-primary" style="width:100%;">Enquire Now</button>
+                    </div>
+                    
+                    <div class="price-card">
+                        <h3 class="text-xl">Primary (Grades 1-5)</h3>
+                        <div class="price-amt">$6,800<span>/term</span></div>
+                        <ul class="price-features">
+                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                            <li><i class="fa-solid fa-check"></i> Lab & Library Access</li>
+                            <li><i class="fa-solid fa-check"></i> Hot Lunch Program</li>
+                            <li><i class="fa-solid fa-check"></i> Access to Sports Facilities</li>
+                        </ul>
+                        <button class="btn btn-outline" style="width:100%;">Enquire Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Floating Application Wizard CTA -->
+        <section id="apply" class="wizard-cta">
+            <div class="container reveal">
+                <div class="wizard-card">
+                    <h2 class="text-4xl" style="color:white; margin-bottom: 1rem;">Ready to Begin?</h2>
+                    <p class="text-lg" style="color:rgba(255,255,255,0.9); margin-bottom: 2rem;">Our online admission wizard makes it easy to submit your application in under 15 minutes.</p>
+                    <button class="wizard-btn">Launch Application Portal <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

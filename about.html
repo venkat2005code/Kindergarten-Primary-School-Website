@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* about.html Unique Layouts */
+        
+        /* 1. Editorial Magazine Hero */
+        .editorial-hero { 
+            position: relative; 
+            padding: 200px 0 150px; 
+            background: url('images/about_hero.png') center/cover;
+        }
+        .editorial-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+        }
+        .ed-hero-top { display: flex; gap: 4rem; align-items: flex-end; position: relative; z-index: 1; }
+        .ed-hero-title { flex: 1.5; }
+        .ed-hero-title h1 { font-size: 5rem; line-height: 0.9; text-transform: uppercase; letter-spacing: -2px; color: white; }
+        .ed-hero-sub { flex: 1; padding-bottom: 1rem; border-left: 2px solid var(--primary); padding-left: 2rem; }
+        .ed-hero-sub p { color: rgba(255,255,255,0.9); }
+        
+        /* 2. School History Timeline (Vertical Winding) */
+        .history-timeline { position: relative; max-width: 800px; margin: 4rem auto; padding: 2rem 0; }
+        .history-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--bg-surface-alt); transform: translateX(-50%); border-radius: 4px; }
+        .ht-item { display: flex; justify-content: flex-end; padding-right: 50%; position: relative; margin-bottom: 4rem; }
+        .ht-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
+        .ht-content { width: 80%; padding: 2rem; background: var(--bg-surface); border-radius: 1.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); position: relative; z-index: 1; }
+        .ht-year { position: absolute; top: 50%; font-family: var(--font-heading); font-size: 3.5rem; font-weight: 800; color: var(--primary); opacity: 0.15; transform: translateY(-50%); }
+        .ht-item:nth-child(odd) .ht-year { left: 50%; margin-left: 2rem; }
+        .ht-item:nth-child(even) .ht-year { right: 50%; left: auto; margin-right: 2rem; }
+        .ht-dot { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-main); z-index: 2; }
+        .ht-item:nth-child(even) .ht-dot { left: 50%; right: auto; }
+
+        /* 3. Mission & Vision Split */
+        .mission-vision { display: flex; height: 600px; }
+        .mv-panel { flex: 1; padding: 4rem; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+        .mv-panel.mission { background: var(--bg-surface-alt); }
+        .mv-panel.vision { background: var(--primary); color: white; }
+        .mv-icon { font-size: 4rem; margin-bottom: 2rem; opacity: 0.2; position: absolute; top: -20px; right: 20px; }
+
+        /* 4. Principal's Quote Overlay */
+        .principal-msg { padding: 8rem 2rem; display: flex; align-items: center; justify-content: center; max-width: 1100px; margin: 0 auto; position: relative; }
+        .pm-img { width: 400px; height: 500px; border-radius: 2rem; overflow: hidden; box-shadow: var(--shadow-xl); flex-shrink: 0; position: relative; z-index: 1; }
+        .pm-img img { width: 100%; height: 100%; object-fit: cover; }
+        .pm-content { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 4rem; border-radius: 2rem; flex: 1; position: relative; z-index: 2; box-shadow: var(--shadow-lg); margin-left: -100px; }
+
+        /* 5. Faculty Honeycomb */
+        .honeycomb { display: flex; flex-direction: column; align-items: center; padding: 2rem 0 4rem; overflow: hidden; }
+        .hc-row { display: flex; gap: 10px; justify-content: center; width: 100%; }
+        .hc-row.even { margin-top: -55px; } 
+        .hc-cell { width: 220px; height: 250px; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: var(--bg-surface-alt); position: relative; overflow: hidden; cursor: pointer; transition: var(--transition-normal); flex-shrink: 0; }
+        .hc-cell img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-slow); filter: grayscale(20%); }
+        .hc-overlay { position: absolute; bottom: -100%; left: 0; width: 100%; padding: 2rem 1rem 1rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: white; text-align: center; transition: var(--transition-normal); }
+        .hc-cell:hover img { filter: grayscale(0%); transform: scale(1.1); }
+        .hc-cell:hover .hc-overlay { bottom: 0; }
+
+        /* 6. Core Values Pathway CTA */
+        .values-cta { background: var(--bg-surface); border-top: 1px solid var(--border-color); padding: 6rem 0; text-align: center; }
+        .value-nodes { display: flex; justify-content: center; align-items: center; gap: 2rem; margin: 3rem 0; position: relative; }
+        .value-nodes::before { content: ''; position: absolute; top: 50%; left: 10%; right: 10%; height: 2px; background: var(--border-color); z-index: 0; }
+        .v-node { background: var(--bg-main); width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1; border: 4px solid var(--bg-surface); box-shadow: var(--shadow-md); transition: var(--transition-normal); }
+        .v-node:hover { transform: scale(1.1); border-color: var(--primary); color: var(--primary); }
+
+        @media (max-width: 1024px) {
+            .ed-hero-top { flex-direction: column; align-items: flex-start; gap: 2rem; }
+            .ed-hero-sub { border-left: none; padding-left: 0; border-top: 2px solid var(--primary); padding-top: 1rem; }
+            .mission-vision { flex-direction: column; height: auto; }
+            
+            .principal-msg { flex-direction: column; gap: 2rem; padding: 4rem 2rem; text-align: center; }
+            .pm-img { margin-left: 0; position: static; width: 100%; max-width: 400px; transform: none; }
+            .pm-content { margin-left: 0; width: 100%; }
+            
+            .hc-row { flex-direction: column; align-items: center; gap: 20px; }
+            .hc-row.even { margin-top: 20px; }
+            .hc-cell { width: 100%; max-width: 300px; height: 340px; clip-path: none; border-radius: 2rem; }
+        }
+        @media (max-width: 768px) {
+            .ed-hero-title h1 { font-size: 4rem; }
+            .history-timeline::before { left: 1.5rem; }
+            .ht-item, .ht-item:nth-child(even) { justify-content: flex-start; padding: 0 0 0 3.5rem; }
+            .ht-content { width: 100%; }
+            .ht-year { top: -20px; right: auto; left: 2.5rem; font-size: 1.5rem; opacity: 1; }
+            .ht-dot, .ht-item:nth-child(even) .ht-dot { left: 1.5rem; transform: translate(-50%, -50%); }
+            .value-nodes { flex-direction: column; }
+            .value-nodes::before { width: 2px; height: 100%; left: 50%; top: 0; }
+        }
+        @media (max-width: 480px) {
+            .ed-hero-title h1 { font-size: 13vw; line-height: 1; word-wrap: break-word; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo" aria-label="LittleStars Home"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation" aria-label="Main Navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link" aria-current="page">About</a></li>
+                    <li class="nav-item"><a href="academics.html" class="nav-link">Academics</a></li>
+                    <li class="nav-item"><a href="admissions.html" class="nav-link">Admissions</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle" aria-label="Toggle Layout Direction">LTR</button>
+                <button id="themeToggle" class="tool-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Editorial Magazine Hero -->
+        <section class="editorial-hero reveal">
+            <div class="container ed-hero-top">
+                <div class="ed-hero-title">
+                    <h1>Our Story.</h1>
+                    <h1 style="color: var(--primary);">Our Legacy.</h1>
+                </div>
+                <div class="ed-hero-sub">
+                    <p class="text-lg">For over two decades, LittleStars has been at the forefront of early childhood and primary education, shaping the minds that will build tomorrow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. School History Timeline -->
+        <section class="section-padding" style="background: var(--bg-main);">
+            <div class="container text-center reveal">
+                <h2 class="text-3xl" style="margin-bottom: 2rem;">A Journey of Excellence</h2>
+            </div>
+            <div class="container history-timeline reveal">
+                <div class="ht-item">
+                    <div class="ht-dot"></div>
+                    <div class="ht-year">2001</div>
+                    <div class="ht-content">
+                        <h3 class="text-xl">The Foundation</h3>
+                        <p class="text-muted text-sm mt-2">LittleStars was founded by a group of passionate educators with a vision to revolutionize kindergarten education in the city.</p>
+                    </div>
+                </div>
+                <div class="ht-item">
+                    <div class="ht-dot"></div>
+                    <div class="ht-year">2010</div>
+                    <div class="ht-content">
+                        <h3 class="text-xl">Primary Expansion</h3>
+                        <p class="text-muted text-sm mt-2">Opened our state-of-the-art Primary School wing, introducing grades 1 through 5 with a dedicated STEM lab.</p>
+                    </div>
+                </div>
+                <div class="ht-item">
+                    <div class="ht-dot"></div>
+                    <div class="ht-year">2018</div>
+                    <div class="ht-content">
+                        <h3 class="text-xl">Digital Transformation</h3>
+                        <p class="text-muted text-sm mt-2">Implemented smart classrooms and launched our proprietary Parent Portal and School ERP system.</p>
+                    </div>
+                </div>
+                <div class="ht-item">
+                    <div class="ht-dot"></div>
+                    <div class="ht-year">2026</div>
+                    <div class="ht-content">
+                        <h3 class="text-xl">Award of Excellence</h3>
+                        <p class="text-muted text-sm mt-2">Recognized as the region's top primary educational institution for holistic child development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Mission & Vision Comparison -->
+        <section class="mission-vision">
+            <div class="mv-panel mission reveal-left">
+                <i class="fa-solid fa-bullseye mv-icon"></i>
+                <span class="badge badge-primary" style="align-self: flex-start; margin-bottom: 1rem;">Our Mission</span>
+                <h2 class="text-3xl" style="margin-bottom: 1.5rem;">Empowering Young Minds</h2>
+                <p class="text-lg text-muted">To provide a nurturing, inclusive, and stimulating environment where every child feels valued. We strive to instill a lifelong love for learning through innovative teaching methods and compassionate guidance.</p>
+            </div>
+            <div class="mv-panel vision reveal-right">
+                <i class="fa-solid fa-eye mv-icon"></i>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color:white; align-self: flex-start; margin-bottom: 1rem;">Our Vision</span>
+                <h2 class="text-3xl" style="color:white; margin-bottom: 1.5rem;">Shaping Global Citizens</h2>
+                <p class="text-lg" style="color:rgba(255,255,255,0.9);">To be a globally recognized institution that develops intellectually curious, emotionally resilient, and socially responsible leaders of tomorrow.</p>
+            </div>
+        </section>
+
+        <!-- 4. Principal's Message -->
+        <section class="container principal-msg">
+            <div class="pm-img reveal-left">
+                <img src="images/principal.png" alt="School Principal">
+            </div>
+            <div class="pm-content reveal-right">
+                <i class="fa-solid fa-quote-left text-primary" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                <h3 class="text-2xl font-body" style="margin-bottom: 1.5rem; line-height: 1.6; font-weight: 500;">"Education is not the filling of a pail, but the lighting of a fire. Here at LittleStars, we ignite that spark every single day."</h3>
+                <h4 class="font-bold text-xl">Dr. Eleanor Rigby</h4>
+                <p class="text-muted">Principal, LittleStars School</p>
+            </div>
+        </section>
+
+        <!-- 5. Meet Our Teachers (Honeycomb) -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container text-center reveal">
+                <h2 class="text-3xl">Meet Our Educators</h2>
+                <p class="text-muted" style="margin-top: 1rem; margin-bottom: 3rem;">A team of passionate, highly qualified professionals dedicated to your child.</p>
+                
+                <div class="honeycomb reveal">
+                    <div class="hc-row">
+                        <div class="hc-cell">
+                            <img src="images/teacher_male.jpeg" alt="Teacher">
+                            <div class="hc-overlay"><strong>Mr. Smith</strong><br><span class="text-sm">Science</span></div>
+                        </div>
+                        <div class="hc-cell">
+                            <img src="images/teacher_female2.jpeg" alt="Teacher">
+                            <div class="hc-overlay"><strong>Ms. Wong</strong><br><span class="text-sm">Kindergarten</span></div>
+                        </div>
+                        <div class="hc-cell">
+                            <img src="images/teacher_2.png" alt="Teacher" style="object-position: right center;">
+                            <div class="hc-overlay"><strong>Mrs. Davis</strong><br><span class="text-sm">Arts</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Core Values Pathway CTA -->
+        <section class="values-cta">
+            <div class="container reveal">
+                <h2 class="text-3xl">Our Core Values</h2>
+                <div class="value-nodes">
+                    <div class="v-node">
+                        <i class="fa-solid fa-heart text-2xl"></i>
+                        <span class="font-bold mt-2">Empathy</span>
+                    </div>
+                    <div class="v-node">
+                        <i class="fa-solid fa-lightbulb text-2xl"></i>
+                        <span class="font-bold mt-2">Curiosity</span>
+                    </div>
+                    <div class="v-node">
+                        <i class="fa-solid fa-handshake text-2xl"></i>
+                        <span class="font-bold mt-2">Integrity</span>
+                    </div>
+                    <div class="v-node">
+                        <i class="fa-solid fa-people-group text-2xl"></i>
+                        <span class="font-bold mt-2">Community</span>
+                    </div>
+                </div>
+                <p class="text-muted" style="margin-bottom: 2rem;">Ready to be part of a community that shares these values?</p>
+                <a href="admissions.html" class="btn btn-primary">Start Admission Process</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

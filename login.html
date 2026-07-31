@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container { display: flex; min-height: 100vh; background: var(--bg-main); }
+        .auth-form-side { flex: 1; display: flex; flex-direction: column; padding: 4rem; position: relative; overflow-y: auto; }
+        .auth-img-side { flex: 1.2; background: url('images/kindergarten_art.jpeg') center/cover; position: relative; display: flex; align-items: flex-end; padding: 4rem; }
+        .auth-img-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
+        .auth-img-content { position: relative; z-index: 1; color: white; max-width: 500px; }
+        
+        .auth-form-side::before, .auth-form-side::after { content: ''; flex: 1; min-height: 0; }
+        .auth-card { max-width: 450px; width: 100%; margin: 0 auto; }
+        .auth-header { text-align: center; margin-bottom: 2.5rem; }
+        .auth-header .logo { display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1rem; }
+        
+        .form-group { margin-bottom: 1.5rem; position: relative; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main); }
+        .form-group input { width: 100%; padding: 1rem 1rem 1rem 3rem; border: 1px solid var(--border-color); border-radius: 0.75rem; background: var(--bg-surface); color: var(--text-main); transition: var(--transition-fast); }
+        .form-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(var(--primary-dark), 0.1); }
+        .form-group i { position: absolute; left: 1rem; bottom: 1.1rem; color: var(--text-muted); }
+        [dir="rtl"] .form-group input { padding: 1rem 3rem 1rem 1rem; }
+        [dir="rtl"] .form-group i { left: auto; right: 1rem; }
+
+        .auth-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-size: 0.9rem; }
+        .custom-checkbox { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-muted); }
+        
+        .auth-toggle { display: flex; background: var(--bg-surface-alt); border-radius: 2rem; margin-bottom: 2rem; padding: 0.25rem; }
+        .at-btn { flex: 1; text-align: center; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: var(--transition-fast); }
+        .at-btn.active { background: var(--primary); color: white; box-shadow: var(--shadow-sm); }
+        
+        .social-login { margin-top: 2rem; text-align: center; }
+        .social-login p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; position: relative; }
+        .social-login p::before, .social-login p::after { content: ''; position: absolute; top: 50%; width: 30%; height: 1px; background: var(--border-color); }
+        .social-login p::before { left: 0; }
+        .social-login p::after { right: 0; }
+        .sl-btn { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 0.75rem; background: var(--bg-surface); color: var(--text-main); font-weight: 600; cursor: pointer; transition: var(--transition-fast); display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+        .sl-btn:hover { background: var(--bg-surface-alt); }
+        .sl-btn img { width: 20px; height: 20px; }
+        
+        .auth-tools { position: absolute; top: 2rem; right: 2rem; display: flex; gap: 1rem; }
+        [dir="rtl"] .auth-tools { right: auto; left: 2rem; }
+
+        @media (max-width: 1024px) {
+            .auth-img-side { display: none; }
+            .auth-form-side { padding: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .auth-tools { top: 1rem; right: 1rem; gap: 0.5rem; }
+            .auth-form-side { padding-top: 4rem; }
+            .auth-header .logo { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- Floating Tools (Theme & RTL) -->
+        <div class="auth-tools">
+            <button id="rtlToggle" class="tool-btn lang-toggle" aria-label="Toggle Layout Direction">LTR</button>
+            <button id="themeToggle" class="tool-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+        </div>
+
+        <div class="auth-form-side">
+            <div class="auth-card reveal">
+                <div class="auth-header">
+                    <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+                    <h2 class="text-3xl mt-2">Welcome Back</h2>
+                    <p class="text-muted mt-2">Sign in to continue to your dashboard.</p>
+                </div>
+                
+                <div class="auth-toggle">
+                    <div class="at-btn active" onclick="switchLogin('parent')">Parent Portal</div>
+                    <div class="at-btn" onclick="switchLogin('staff')">Staff ERP</div>
+                </div>
+
+                <form action="dashboard.html" method="GET" id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="email" placeholder="parent@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div class="auth-options">
+                        <label class="custom-checkbox">
+                            <input type="checkbox"> Remember me
+                        </label>
+                        <a href="#" class="text-primary font-bold">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Sign In</button>
+                </form>
+                
+                <div class="social-login">
+                    <p>Or continue with</p>
+                    <button class="sl-btn">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="Google">
+                        Sign in with Google
+                    </button>
+                </div>
+                
+                <p class="text-center text-muted mt-4">Don't have an account? <a href="register.html" class="text-primary font-bold">Register here</a></p>
+            </div>
+        </div>
+        
+        <div class="auth-img-side">
+            <div class="auth-img-content reveal-right">
+                <h2 class="text-4xl mb-4">Your child's progress, right at your fingertips.</h2>
+                <p class="text-lg">Our intuitive Parent Portal keeps you connected with daily attendance, homework tracking, and seamless communication with teachers.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function switchLogin(type) {
+            const btns = document.querySelectorAll('.at-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            
+            if(type === 'staff') {
+                form.action = 'admin.html';
+                emailInput.placeholder = 'staff@littlestars.edu';
+            } else {
+                form.action = 'dashboard.html';
+                emailInput.placeholder = 'parent@example.com';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Portal - LittleStars</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" role="navigation" aria-label="Dashboard Sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo text-xl">
+                <i class="fa-solid fa-shapes"></i> LittleStars
+            </a>
+            <button class="sidebar-close" aria-label="Close Sidebar"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-group">Main</div>
+            <a href="#overview" class="menu-link active"><i class="fa-solid fa-chart-pie"></i> <span>Overview</span></a>
+            <a href="#attendance" class="menu-link"><i class="fa-solid fa-calendar-check"></i> <span>Attendance</span></a>
+            <a href="#homework" class="menu-link"><i class="fa-solid fa-book-open"></i> <span>Homework</span></a>
+            
+            <div class="menu-group">Academics</div>
+            <a href="#timetable" class="menu-link"><i class="fa-solid fa-clock"></i> <span>Timetable</span></a>
+            <a href="#progress" class="menu-link"><i class="fa-solid fa-chart-line"></i> <span>Academic Progress</span></a>
+            <a href="#calendar" class="menu-link"><i class="fa-solid fa-calendar-days"></i> <span>School Calendar</span></a>
+            
+            <div class="menu-group">Communication</div>
+            <a href="#messages" class="menu-link"><i class="fa-solid fa-comments"></i> <span>Messages</span></a>
+            <a href="#announcements" class="menu-link"><i class="fa-solid fa-bullhorn"></i> <span>Announcements</span></a>
+            
+            <div class="menu-group">Administration</div>
+            <a href="#fees" class="menu-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Fee Payment</span></a>
+            <a href="#profile" class="menu-link"><i class="fa-solid fa-user-gear"></i> <span>Profile & Settings</span></a>
+        </div>
+    </aside>
+
+    <div class="dashboard-wrapper">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+                <div class="breadcrumbs">
+                    <span>Parent Portal</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                    <span id="breadcrumbActive" class="active">Overview</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search portal...">
+                </div>
+                
+                <button id="rtlToggle" class="tool-btn lang-toggle" style="height: 36px;">LTR</button>
+                <button id="themeToggle" class="tool-btn" style="height: 36px; width: 36px;">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <button class="tool-btn" style="height: 36px; width: 36px; position:relative;">
+                    <i class="fa-regular fa-bell"></i>
+                    <span style="position:absolute; top:5px; right:5px; width:8px; height:8px; background:var(--danger); border-radius:50%;"></span>
+                </button>
+                
+                <div class="profile-dropdown">
+                    <img src="images/parent_avatar.jpeg" alt="Parent Profile" class="profile-img">
+                    <div class="profile-info">
+                        <span class="profile-name">Sarah Jenkins</span>
+                        <span class="profile-role">Parent of Emma</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            
+            <!-- SECTION: OVERVIEW -->
+            <section id="overview" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Welcome back, Sarah!</h2>
+                        <p class="ds-desc">Here's a quick overview of Emma's school activities.</p>
+                    </div>
+                </div>
+
+                <!-- Today's Snapshot -->
+                <div class="snapshot-panel" style="margin-bottom: 2rem;">
+                    <div class="snapshot-profile">
+                        <img src="images/student_avatar.jpeg" alt="Student Emma">
+                        <div style="text-align:center;">
+                            <h4 style="font-family:var(--font-heading); margin-bottom:0.2rem;">Emma Jenkins</h4>
+                            <span class="badge badge-success" style="background:white; color:var(--success);">Present Today</span>
+                        </div>
+                    </div>
+                    <div class="snapshot-details">
+                        <div class="snap-item">
+                            <span>Current Class</span>
+                            <h5>Mathematics (Room 2B)</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Next Class</span>
+                            <h5>Science Lab</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Homework Due</span>
+                            <h5>2 Assignments</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Upcoming Exam</span>
+                            <h5>English (12 Oct)</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Fee Status</span>
+                            <h5 style="color: #FFD166;">Due in 5 days</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Bus Status</span>
+                            <h5>On Route (15 mins)</h5>
+                        </div>
+                        <div class="snap-item">
+                            <span>Lunch Menu</span>
+                            <h5>Pasta & Salad</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Panel -->
+                <h3 class="text-xl font-heading" style="margin-bottom: 1rem;">Quick Actions</h3>
+                <div class="quick-actions" style="margin-bottom: 3rem;">
+                    <button class="qa-btn"><i class="fa-solid fa-credit-card"></i> Pay Fees</button>
+                    <button class="qa-btn"><i class="fa-solid fa-comment-medical"></i> Message Teacher</button>
+                    <button class="qa-btn"><i class="fa-solid fa-file-pdf"></i> Download Report</button>
+                    <button class="qa-btn"><i class="fa-solid fa-bus"></i> Track Bus</button>
+                    <button class="qa-btn"><i class="fa-solid fa-calendar-plus"></i> Leave Request</button>
+                </div>
+            </section>
+
+            <!-- SECTION: ATTENDANCE (Heatmap) -->
+            <section id="attendance" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Attendance Tracker</h2>
+                        <p class="ds-desc">Yearly overview of Emma's attendance.</p>
+                    </div>
+                    <div class="flex" style="gap:1rem;">
+                        <span style="font-size:0.8rem; display:flex; align-items:center; gap:0.5rem;"><span style="width:12px; height:12px; background:var(--success); border-radius:2px; display:inline-block;"></span> Present</span>
+                        <span style="font-size:0.8rem; display:flex; align-items:center; gap:0.5rem;"><span style="width:12px; height:12px; background:var(--danger); border-radius:2px; display:inline-block;"></span> Absent</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="overflow-x: auto;">
+                    <!-- Generating a fake heatmap for visual representation -->
+                    <div class="heatmap-grid" style="min-width: 600px;">
+                        <!-- Using inline styles dynamically to simulate random heatmap data for demonstration -->
+                        <script>
+                            for(let i=0; i<150; i++) {
+                                let cls = 'hm-level-' + (Math.random() > 0.1 ? (Math.random() > 0.5 ? 4 : 3) : 1);
+                                document.write(`<div class="hm-cell ${cls}" title="Day ${i}"></div>`);
+                            }
+                        </script>
+                    </div>
+                    <div class="flex justify-between" style="margin-top: 1rem; color: var(--text-muted); font-size: 0.8rem;">
+                        <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: HOMEWORK (Kanban) -->
+            <section id="homework" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Homework & Assignments</h2>
+                        <p class="ds-desc">Track and download current assignments.</p>
+                    </div>
+                </div>
+                
+                <div class="kanban-board">
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>To Do</span>
+                            <span class="badge badge-warning">3</span>
+                        </div>
+                        <div class="kanban-card">
+                            <span class="badge badge-primary" style="margin-bottom:0.5rem; display:inline-block;">Math</span>
+                            <h4>Algebra Worksheet 4</h4>
+                            <p class="text-sm text-muted">Complete exercises 1-15.</p>
+                            <div class="kanban-meta">
+                                <span><i class="fa-regular fa-clock"></i> Due Tomorrow</span>
+                                <button class="btn btn-outline" style="padding:0.25rem 0.5rem; font-size:0.75rem;"><i class="fa-solid fa-download"></i></button>
+                            </div>
+                        </div>
+                        <div class="kanban-card">
+                            <span class="badge badge-success" style="margin-bottom:0.5rem; display:inline-block;">Science</span>
+                            <h4>Plant Life Cycle Diagram</h4>
+                            <p class="text-sm text-muted">Draw and label the 4 stages.</p>
+                            <div class="kanban-meta">
+                                <span><i class="fa-regular fa-clock"></i> Due Friday</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>In Progress</span>
+                            <span class="badge badge-info">1</span>
+                        </div>
+                        <div class="kanban-card">
+                            <span class="badge badge-danger" style="margin-bottom:0.5rem; display:inline-block;">History</span>
+                            <h4>Roman Empire Essay</h4>
+                            <p class="text-sm text-muted">500 words on daily life.</p>
+                            <div class="kanban-meta">
+                                <span><i class="fa-regular fa-clock"></i> Due Next Week</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kanban-col">
+                        <div class="kanban-header">
+                            <span>Completed / Graded</span>
+                            <span class="badge badge-success">4</span>
+                        </div>
+                        <div class="kanban-card" style="opacity: 0.7;">
+                            <span class="badge badge-primary" style="margin-bottom:0.5rem; display:inline-block;">Math</span>
+                            <h4>Geometry Quiz Prep</h4>
+                            <div class="kanban-meta">
+                                <span class="text-success font-bold">Grade: A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION: TIMETABLE -->
+            <section id="timetable" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Weekly Timetable</h2>
+                        <p class="ds-desc">Current academic schedule.</p>
+                    </div>
+                </div>
+                
+                <div class="data-table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>08:30 - 09:15</td>
+                                <td><span class="badge badge-primary">Mathematics</span></td>
+                                <td><span class="badge badge-success">Science</span></td>
+                                <td><span class="badge badge-primary">Mathematics</span></td>
+                                <td><span class="badge badge-warning">English</span></td>
+                                <td><span class="badge badge-danger">History</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:20 - 10:05</td>
+                                <td><span class="badge badge-warning">English</span></td>
+                                <td><span class="badge badge-primary">Mathematics</span></td>
+                                <td><span class="badge badge-info">Art</span></td>
+                                <td><span class="badge badge-success">Science</span></td>
+                                <td><span class="badge badge-primary">Mathematics</span></td>
+                            </tr>
+                            <tr>
+                                <td>10:05 - 10:30</td>
+                                <td colspan="5" class="text-center text-muted bg-surface-alt">RECESS</td>
+                            </tr>
+                            <tr>
+                                <td>10:30 - 11:15</td>
+                                <td><span class="badge badge-danger">History</span></td>
+                                <td><span class="badge badge-info">PE</span></td>
+                                <td><span class="badge badge-success">Science</span></td>
+                                <td><span class="badge badge-info">Music</span></td>
+                                <td><span class="badge badge-warning">English</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION: ACADEMIC PROGRESS (Progress Rings) -->
+            <section id="progress" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Academic Progress</h2>
+                        <p class="ds-desc">Term 1 performance overview.</p>
+                    </div>
+                    <button class="btn btn-outline text-sm"><i class="fa-solid fa-download"></i> Full Report</button>
+                </div>
+                
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <div class="card text-center progress-ring-container">
+                        <h4 class="text-lg">Mathematics</h4>
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke="var(--primary)" stroke-dasharray="92, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage">92%</text>
+                        </svg>
+                        <p class="text-sm text-success"><i class="fa-solid fa-arrow-trend-up"></i> +4% from last term</p>
+                    </div>
+                    <div class="card text-center progress-ring-container">
+                        <h4 class="text-lg">Science</h4>
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke="var(--success)" stroke-dasharray="88, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage">88%</text>
+                        </svg>
+                    </div>
+                    <div class="card text-center progress-ring-container">
+                        <h4 class="text-lg">English</h4>
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke="var(--warning)" stroke-dasharray="95, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage">95%</text>
+                        </svg>
+                    </div>
+                    <div class="card text-center progress-ring-container">
+                        <h4 class="text-lg">History</h4>
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" stroke="var(--danger)" stroke-dasharray="78, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage">78%</text>
+                        </svg>
+                        <p class="text-sm text-danger"><i class="fa-solid fa-arrow-trend-down"></i> -2% from last term</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: ANNOUNCEMENTS (Timeline) -->
+            <section id="announcements" class="dashboard-section reveal">
+                <div class="ds-header">
+                    <div>
+                        <h2 class="ds-title">Notice Board</h2>
+                        <p class="ds-desc">Latest updates from the school administration.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-dot"></div>
+                        <div class="tl-content">
+                            <span class="tl-time">Today, 09:00 AM</span>
+                            <h4 class="text-xl" style="margin-bottom:0.5rem;">Winter Uniform Guideline</h4>
+                            <p class="text-muted">Please ensure all students switch to the winter uniform starting next Monday. Sweaters must be the official school navy blue.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-dot" style="background: var(--secondary);"></div>
+                        <div class="tl-content">
+                            <span class="tl-time">Yesterday, 14:30 PM</span>
+                            <h4 class="text-xl" style="margin-bottom:0.5rem;">Science Fair Registrations Open</h4>
+                            <p class="text-muted">The annual science fair registration is now open. Students can submit their project proposals via the homework portal.</p>
+                            <button class="btn btn-outline" style="margin-top:1rem; padding: 0.5rem 1rem; font-size:0.8rem;">Register Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

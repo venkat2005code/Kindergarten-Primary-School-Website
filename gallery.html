@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - LittleStars School</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* gallery.html Unique Layouts */
+        
+        /* 1. Illustration/Clean Hero */
+        .gallery-hero { padding: 100px 0 60px; background: var(--bg-surface-alt); text-align: center; position: relative; overflow: hidden; }
+        .gallery-hero::before { content: ''; position: absolute; width: 300px; height: 300px; background: var(--primary); border-radius: 50%; opacity: 0.1; top: -100px; left: -100px; filter: blur(50px); }
+        .gallery-hero::after { content: ''; position: absolute; width: 300px; height: 300px; background: var(--secondary); border-radius: 50%; opacity: 0.1; bottom: -100px; right: -100px; filter: blur(50px); }
+        .gh-content { position: relative; z-index: 1; }
+
+        /* 2. Pinterest Masonry Gallery */
+        .masonry-gallery { columns: 3 300px; column-gap: 1.5rem; }
+        .mg-item { break-inside: avoid; margin-bottom: 1.5rem; position: relative; border-radius: 1rem; overflow: hidden; }
+        .mg-item img { width: 100%; display: block; border-radius: 1rem; transition: var(--transition-slow); }
+        .mg-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: var(--transition-normal); color: white; padding: 1rem; text-align: center; }
+        .mg-overlay h4 { color: white; }
+        .mg-item:hover img { transform: scale(1.05); }
+        .mg-item:hover .mg-overlay { opacity: 1; }
+
+        /* 3. Event Storytelling Gallery */
+        .event-story { display: grid; grid-template-columns: 1fr 1fr; gap: 0; background: var(--bg-surface); border-radius: 2rem; overflow: hidden; border: 1px solid var(--border-color); }
+        .es-img { height: 500px; position: relative; }
+        .es-img img { width: 100%; height: 100%; object-fit: cover; }
+        .es-content { padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+        .event-story:nth-child(even) .es-img { order: 2; }
+        .event-story:nth-child(even) .es-content { order: 1; }
+
+        /* 4. Sports Highlight Layout */
+        .sports-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 250px); gap: 1rem; }
+        .sg-item { border-radius: 1rem; overflow: hidden; position: relative; }
+        .sg-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition-normal); }
+        .sg-overlay { position: absolute; bottom: -100%; left: 0; width: 100%; padding: 1rem; background: linear-gradient(transparent, var(--primary)); color: white; transition: var(--transition-normal); }
+        .sg-item:hover img { transform: scale(1.1); filter: brightness(0.8); }
+        .sg-item:hover .sg-overlay { bottom: 0; }
+        .sg-large { grid-column: span 2; grid-row: span 2; }
+
+        /* 5. Award Showcase Wall */
+        .award-wall { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 3rem; }
+        .award-card { background: var(--bg-surface); border: 1px solid var(--border-color); padding: 3rem 2rem; border-radius: 50px 50px 10px 10px; text-align: center; width: 250px; position: relative; margin: 3rem 1.5rem; }
+        .award-icon { width: 80px; height: 80px; background: gold; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #b8860b; border: 4px solid #fff; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); box-shadow: var(--shadow-md); }
+        .award-card h4 { margin-top: 1rem; margin-bottom: 0.5rem; }
+
+        /* 6. Virtual Campus Tour (360-degree styled container) */
+        .tour-container { position: relative; border-radius: 2rem; overflow: hidden; height: 600px; background: #000; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-xl); }
+        .tour-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.7; transition: opacity 0.3s; }
+        .tour-container:hover .tour-video { opacity: 0.9; }
+        .tour-btn { z-index: 1; width: 100px; height: 100px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--primary); cursor: pointer; transition: var(--transition-normal); box-shadow: 0 0 0 15px rgba(255,255,255,0.2); }
+        .tour-btn:hover { transform: scale(1.1); background: white; }
+
+        @media (max-width: 1024px) {
+            .event-story, .event-story:nth-child(even) { grid-template-columns: 1fr; }
+            .event-story:nth-child(even) .es-img { order: 1; }
+            .event-story:nth-child(even) .es-content { order: 2; }
+            .es-img { height: 300px; }
+            .sports-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+            .sg-large { grid-column: span 2; grid-row: auto; aspect-ratio: 16/9; }
+            .sg-item { aspect-ratio: 1; }
+        }
+        @media (max-width: 768px) {
+            .masonry-gallery { columns: 2; }
+            .event-story { grid-template-columns: 1fr; }
+            .event-story:nth-child(even) .es-img { order: 1; }
+            .event-story:nth-child(even) .es-content { order: 2; }
+            .es-content { padding: 2rem; }
+            .sports-grid { grid-template-columns: 1fr 1fr; }
+            .sg-large { grid-column: auto; grid-row: auto; aspect-ratio: 1; }
+        }
+        @media (max-width: 480px) {
+            .masonry-gallery { columns: 1; }
+            .sports-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="main-header" role="banner">
+        <div class="container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-shapes"></i> LittleStars</a>
+            <nav role="navigation">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Home <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="index.html" class="dropdown-item">Home 1 - Welcome</a></li>
+                            <li><a href="home2.html" class="dropdown-item">Home 2 - Campus Life</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="academics.html" class="nav-link">Academics</a></li>
+                    <li class="nav-item"><a href="admissions.html" class="nav-link">Admissions</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link" aria-current="page">Gallery</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" aria-haspopup="true" aria-expanded="false">Dashboards <i class="fa-solid fa-chevron-down fa-xs"></i></a>
+                        <ul class="dropdown-menu" aria-label="Submenu">
+                            <li><a href="dashboard.html" class="dropdown-item">User</a></li>
+                            <li><a href="admin.html" class="dropdown-item">Admin</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header-tools">
+                <button class="mobile-menu-toggle tool-btn" aria-label="Toggle Mobile Menu"><i class="fa-solid fa-bars"></i></button>
+                <button id="rtlToggle" class="tool-btn lang-toggle">LTR</button>
+                <button id="themeToggle" class="tool-btn"><i class="fa-solid fa-moon"></i></button>
+            
+                <a href="login.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem; margin-left: 0.5rem;">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Illustration/Clean Hero -->
+        <section class="gallery-hero">
+            <div class="container gh-content reveal">
+                <h1 class="text-4xl" style="font-size: 3.5rem; margin-bottom: 1rem;">Memories & Moments</h1>
+                <p class="text-muted text-lg" style="max-width: 600px; margin: 0 auto;">A visual journey through the vibrant life, activities, and achievements at LittleStars School.</p>
+            </div>
+        </section>
+
+        <!-- 2. Pinterest Masonry Gallery -->
+        <section class="section-padding">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Classroom Chronicles</h2>
+                <div class="flex justify-center" style="gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <span class="badge badge-primary">All</span>
+                    <span class="badge" style="background:var(--bg-surface-alt); border:1px solid var(--border-color); color:var(--text-main);">Kindergarten</span>
+                    <span class="badge" style="background:var(--bg-surface-alt); border:1px solid var(--border-color); color:var(--text-main);">Primary</span>
+                    <span class="badge" style="background:var(--bg-surface-alt); border:1px solid var(--border-color); color:var(--text-main);">Arts</span>
+                </div>
+            </div>
+            <div class="container masonry-gallery reveal">
+                <div class="mg-item">
+                    <img src="images/kindergarten_art.jpeg" alt="Art class">
+                    <div class="mg-overlay"><h4>Creative Art Class</h4></div>
+                </div>
+                <div class="mg-item">
+                    <img src="images/playground.jpeg" alt="Playtime">
+                    <div class="mg-overlay"><h4>Outdoor Play</h4></div>
+                </div>
+                <div class="mg-item">
+                    <img src="images/campus_exterior.jpeg" alt="Campus">
+                    <div class="mg-overlay"><h4>Campus Tour</h4></div>
+                </div>
+                
+                <div class="mg-item">
+                    <img src="images/library_reading.jpeg" alt="Reading">
+                    <div class="mg-overlay"><h4>Reading Circle</h4></div>
+                </div>
+                <div class="mg-item">
+                    <img src="images/music_class.jpeg" alt="Music">
+                    <div class="mg-overlay"><h4>Music Room</h4></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Event Storytelling Gallery -->
+        <section class="section-padding" style="background: var(--bg-surface-alt);">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Annual Events</h2>
+            </div>
+            <div class="container flex" style="flex-direction: column; gap: 4rem;">
+                <div class="event-story reveal">
+                    <div class="es-img"><img src="images/science_lab.jpeg" alt="Science Fair"></div>
+                    <div class="es-content">
+                        <span class="text-primary font-bold mb-2">October 2025</span>
+                        <h3 class="text-3xl mb-4">Little Einsteins Science Fair</h3>
+                        <p class="text-muted text-lg">Our primary students showcased incredible ingenuity, presenting projects ranging from renewable energy models to basic robotics. A proud moment for parents and teachers alike.</p>
+                        <a href="#" class="btn btn-outline" style="margin-top:2rem; align-self:flex-start;">View Full Album</a>
+                    </div>
+                </div>
+                <div class="event-story reveal">
+                    <div class="es-img"><img src="images/graduation.jpeg" alt="Annual Day"></div>
+                    <div class="es-content">
+                        <span class="text-primary font-bold mb-2">December 2025</span>
+                        <h3 class="text-3xl mb-4">Winter Gala & Annual Play</h3>
+                        <p class="text-muted text-lg">A spectacular evening filled with music, drama, and dance. Over 300 students participated in our rendition of 'The Magic Treehouse', leaving the audience spellbound.</p>
+                        <a href="#" class="btn btn-outline" style="margin-top:2rem; align-self:flex-start;">View Full Album</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Sports Highlight Layout -->
+        <section class="section-padding">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Sports & Athletics</h2>
+            </div>
+            <div class="container sports-grid reveal">
+                <div class="sg-item sg-large">
+                    <img src="images/playground.jpeg" alt="Sports Field">
+                    <div class="sg-overlay"><h4 class="text-xl">Annual Sports Meet</h4></div>
+                </div>
+                <div class="sg-item">
+                    <img src="images/basketball_court.jpeg" alt="Basketball">
+                    <div class="sg-overlay"><h4>Basketball Practice</h4></div>
+                </div>
+                <div class="sg-item">
+                    <img src="images/outdoor_track.jpeg" alt="Track">
+                    <div class="sg-overlay"><h4>Track & Field</h4></div>
+                </div>
+                <div class="sg-item">
+                    <img src="images/swimming_pool.jpeg" alt="Swimming">
+                    <div class="sg-overlay"><h4>Swimming Gala</h4></div>
+                </div>
+                <div class="sg-item">
+                    <img src="images/hero_blocks.jpeg" alt="Play">
+                    <div class="sg-overlay"><h4>Recess Games</h4></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Award Showcase Wall -->
+        <section class="section-padding" style="background: var(--bg-main);">
+            <div class="container text-center reveal" style="margin-bottom: 5rem;">
+                <h2 class="text-3xl">Hall of Fame</h2>
+                <p class="text-muted mt-2">Celebrating outstanding institutional achievements.</p>
+            </div>
+            <div class="container award-wall reveal">
+                <div class="award-card">
+                    <div class="award-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h4>Best Primary School</h4>
+                    <p class="text-sm text-muted">National Education Awards 2025</p>
+                </div>
+                <div class="award-card">
+                    <div class="award-icon"><i class="fa-solid fa-medal"></i></div>
+                    <h4>Excellence in STEM</h4>
+                    <p class="text-sm text-muted">Regional Tech Foundation 2024</p>
+                </div>
+                <div class="award-card">
+                    <div class="award-icon"><i class="fa-solid fa-star"></i></div>
+                    <h4>Green Campus Award</h4>
+                    <p class="text-sm text-muted">Eco-Schools International 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Virtual Campus Tour -->
+        <section class="section-padding">
+            <div class="container text-center reveal" style="margin-bottom: 3rem;">
+                <h2 class="text-3xl">Virtual Campus Tour</h2>
+                <p class="text-muted mt-2">Explore our facilities from the comfort of your home.</p>
+            </div>
+            <div class="container reveal">
+                <div class="tour-container">
+                    <video class="tour-video" src="videos/campus_tour.mp4" autoplay loop muted playsinline></video>
+                    <div class="tour-btn"><i class="fa-solid fa-play" style="margin-left:5px;"></i></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="reveal">
+                    <a href="index.html" class="footer-logo">
+                        <i class="fa-solid fa-shapes"></i> LittleStars
+                    </a>
+                    <p class="footer-desc">Providing a nurturing, safe, and inspiring educational environment for early childhood and primary students. Building tomorrow's leaders today.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="academics.html">Curriculum</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="dashboard.html">Parent Portal</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <h4>Admissions</h4>
+                    <ul class="footer-links">
+                        <li><a href="admissions.html">Admission Process</a></li>
+                        <li><a href="admissions.html#fees">Fee Structure</a></li>
+                        <li><a href="home2.html#visit">Book Campus Tour</a></li>
+                        <li><a href="contact.html#faq">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s;">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-links">
+                        <li><i class="fa-solid fa-location-dot" style="margin-right: 0.5rem; color:var(--primary);"></i> 123 Education Lane, Edu City</li>
+                        <li><i class="fa-solid fa-phone" style="margin-right: 0.5rem; color:var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li><i class="fa-solid fa-envelope" style="margin-right: 0.5rem; color:var(--primary);"></i> hello@littlestars.edu</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LittleStars Kindergarten & Primary School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
