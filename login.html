@@ -177,6 +177,7 @@
         .auth-btn.ghost { background: transparent; border: 2px solid white; box-shadow: none; }
         .auth-btn.ghost:hover { background: white; color: var(--primary); }
 
+        .mobile-toggle { display: none; }
         @media (max-width: 768px) {
             .container { min-height: 100vh; width: 100%; border-radius: 0; }
             .sign-in-container, .sign-up-container { width: 100%; }
@@ -185,7 +186,6 @@
             .container.right-panel-active .sign-up-container { transform: translateX(0); opacity: 1; z-index: 5; }
             .mobile-toggle { display: block; margin-top: 2rem; color: var(--primary); font-weight: bold; cursor: pointer; text-decoration: underline; }
         }
-        .mobile-toggle { display: none; }
         @media (min-width: 769px) { .mobile-toggle { display: none !important; } }
 
         /* Animated Background Shapes */
