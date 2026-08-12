@@ -12,7 +12,7 @@
         /* admissions.html Unique Layouts */
         
         /* 1. Full-screen Storytelling Hero */
-        .story-hero { height: 90vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/campus_exterior.jpeg') center/cover fixed; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 2rem; position: relative; }
+        .story-hero { min-height: 100vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('images/campus_exterior.jpeg') center/cover fixed; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 2rem; position: relative; }
         .story-hero-content { max-width: 800px; animation: slideUp 1s ease; }
         .story-hero h1 { font-size: 4.5rem; margin-bottom: 1.5rem; color: white; }
         .story-hero p { font-size: 1.25rem; opacity: 0.9; margin-bottom: 2rem; }
@@ -47,17 +47,29 @@
         .dc-item:last-child { border-bottom: none; }
         .dc-check { width: 30px; height: 30px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-        /* 5. Premium Pricing Tables */
-        .pricing-grid { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
-        .price-card { background: var(--bg-surface); border-radius: 2rem; padding: 3rem; width: 350px; text-align: center; border: 1px solid var(--border-color); position: relative; }
-        .price-card.premium { border-color: var(--primary); box-shadow: var(--shadow-2xl); transform: scale(1.05); z-index: 2; }
-        .price-card.premium::before { content: 'Most Popular'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.5rem 1.5rem; border-radius: 2rem; font-size: 0.8rem; font-weight: bold; }
-        .price-amt { font-size: 3.5rem; font-weight: 800; font-family: var(--font-heading); margin: 1.5rem 0; color: var(--text-main); }
-        .price-amt span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
-        .price-features { list-style: none; padding: 0; margin: 2rem 0; text-align: left; }
-        .price-features li { padding: 0.5rem 0; border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
-        .price-features li i { color: var(--success); margin-right: 0.5rem; }
-        [dir="rtl"] .price-features li i { margin-right: 0; margin-left: 0.5rem; }
+        /* 5. School Fee Structure (List Layout) */
+        .fee-list { display: flex; flex-direction: column; gap: 1rem; max-width: 900px; margin: 0 auto; }
+        .fee-row { display: flex; align-items: center; background: var(--bg-surface); border-radius: 1rem; padding: 2rem; border: 1px solid var(--border-color); justify-content: space-between; transition: var(--transition-normal); }
+        .fee-row:hover { box-shadow: var(--shadow-lg); border-color: var(--primary); transform: translateY(-3px); }
+        .fee-grade { flex: 1; }
+        .fee-grade h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .fee-grade p { color: var(--text-muted); font-size: 0.9rem; margin: 0; }
+        .fee-amount { flex: 1; text-align: center; }
+        .fee-amount .amt { font-size: 2.5rem; font-weight: 800; font-family: var(--font-heading); color: var(--text-main); }
+        .fee-amount .term { font-size: 0.9rem; color: var(--text-muted); }
+        .fee-inclusions { flex: 2; padding: 0 2rem; }
+        .fee-inclusions ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+        .fee-inclusions li { color: var(--text-muted); font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .fee-inclusions li i { color: var(--success); }
+        .fee-action { flex: 0.8; text-align: right; }
+        
+        @media (max-width: 992px) {
+            .fee-row { flex-direction: column; text-align: center; gap: 1.5rem; }
+            .fee-inclusions { padding: 0; width: 100%; }
+            .fee-inclusions ul { grid-template-columns: 1fr; justify-items: center; }
+            .fee-action { width: 100%; text-align: center; }
+            .fee-action .btn { width: 100%; }
+        }
 
         /* 6. Floating Application Wizard Card CTA */
         .wizard-cta { padding: 6rem 0; background: var(--bg-main); position: relative; }
@@ -236,41 +248,68 @@
                     <p class="text-muted mt-2">Transparent pricing with no hidden costs.</p>
                 </div>
                 
-                <div class="pricing-grid reveal">
-                    <div class="price-card">
-                        <h3 class="text-xl">Pre-K</h3>
-                        <div class="price-amt">$4,500<span>/term</span></div>
-                        <ul class="price-features">
-                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
-                            <li><i class="fa-solid fa-check"></i> Learning Materials</li>
-                            <li><i class="fa-solid fa-check"></i> Daily Snacks</li>
-                            <li><i class="fa-solid fa-xmark" style="color:var(--danger);"></i> Transportation (Optional)</li>
-                        </ul>
-                        <button class="btn btn-outline" style="width:100%;">Enquire Now</button>
+                <div class="fee-list reveal">
+                    <div class="fee-row">
+                        <div class="fee-grade">
+                            <h3>Pre-K</h3>
+                            <p>Ages 3-4</p>
+                        </div>
+                        <div class="fee-amount">
+                            <span class="amt">$4,500</span><span class="term">/term</span>
+                        </div>
+                        <div class="fee-inclusions">
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                                <li><i class="fa-solid fa-check"></i> Learning Materials</li>
+                                <li><i class="fa-solid fa-check"></i> Daily Snacks</li>
+                                <li><i class="fa-solid fa-xmark" style="color:var(--danger);"></i> Transportation</li>
+                            </ul>
+                        </div>
+                        <div class="fee-action">
+                            <button class="btn btn-outline">Enquire</button>
+                        </div>
                     </div>
                     
-                    <div class="price-card premium">
-                        <h3 class="text-xl">Kindergarten</h3>
-                        <div class="price-amt">$5,200<span>/term</span></div>
-                        <ul class="price-features">
-                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
-                            <li><i class="fa-solid fa-check"></i> Learning Materials & Tech Fee</li>
-                            <li><i class="fa-solid fa-check"></i> Daily Snacks & Hot Lunch</li>
-                            <li><i class="fa-solid fa-check"></i> Local Field Trips</li>
-                        </ul>
-                        <button class="btn btn-primary" style="width:100%;">Enquire Now</button>
+                    <div class="fee-row" style="border-color: var(--primary); box-shadow: var(--shadow-sm);">
+                        <div class="fee-grade">
+                            <h3 style="color: var(--primary);">Kindergarten</h3>
+                            <p>Ages 4-6</p>
+                        </div>
+                        <div class="fee-amount">
+                            <span class="amt">$5,200</span><span class="term">/term</span>
+                        </div>
+                        <div class="fee-inclusions">
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                                <li><i class="fa-solid fa-check"></i> Materials & Tech</li>
+                                <li><i class="fa-solid fa-check"></i> Hot Lunch</li>
+                                <li><i class="fa-solid fa-check"></i> Local Field Trips</li>
+                            </ul>
+                        </div>
+                        <div class="fee-action">
+                            <button class="btn btn-primary">Enquire</button>
+                        </div>
                     </div>
-                    
-                    <div class="price-card">
-                        <h3 class="text-xl">Primary (Grades 1-5)</h3>
-                        <div class="price-amt">$6,800<span>/term</span></div>
-                        <ul class="price-features">
-                            <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
-                            <li><i class="fa-solid fa-check"></i> Lab & Library Access</li>
-                            <li><i class="fa-solid fa-check"></i> Hot Lunch Program</li>
-                            <li><i class="fa-solid fa-check"></i> Access to Sports Facilities</li>
-                        </ul>
-                        <button class="btn btn-outline" style="width:100%;">Enquire Now</button>
+
+                    <div class="fee-row">
+                        <div class="fee-grade">
+                            <h3>Primary</h3>
+                            <p>Grades 1-5</p>
+                        </div>
+                        <div class="fee-amount">
+                            <span class="amt">$6,800</span><span class="term">/term</span>
+                        </div>
+                        <div class="fee-inclusions">
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Tuition Fee</li>
+                                <li><i class="fa-solid fa-check"></i> Lab & Library</li>
+                                <li><i class="fa-solid fa-check"></i> Hot Lunch</li>
+                                <li><i class="fa-solid fa-check"></i> Sports Access</li>
+                            </ul>
+                        </div>
+                        <div class="fee-action">
+                            <button class="btn btn-outline">Enquire</button>
+                        </div>
                     </div>
                 </div>
             </div>

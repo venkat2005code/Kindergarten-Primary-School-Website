@@ -29,12 +29,21 @@
         .campus-map-section { background: var(--primary); color: white; padding: 4rem 0; overflow: hidden; border-radius: 2rem; margin: 4rem 0; position: relative; }
         .cm-layout { display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 0 4rem; }
         .cm-text { flex: 1; }
-        .cm-graphic { flex: 1.5; position: relative; height: 400px; background: url('images/campus_map.jpeg') center/cover no-repeat; border-radius: 1.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; }
+        .cm-graphic { flex: 1.5; position: relative; border-radius: 1.5rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; background: #c5e1a5; }
+        .cm-image-wrapper { position: relative; width: 100%; display: block; }
+        .cm-image-wrapper > img.campus-bg { width: 100%; height: auto; display: block; }
         .cm-marker { position: absolute; background: white; color: var(--primary); padding: 0.5rem 1rem; border-radius: 2rem; font-weight: bold; cursor: pointer; animation: float 3s ease-in-out infinite; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .cm-marker::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); border-width: 8px 8px 0; border-style: solid; border-color: white transparent transparent transparent; }
-        .cm-marker:nth-of-type(1) { top: 30%; left: 15%; animation-delay: 0s; }
-        .cm-marker:nth-of-type(2) { top: 60%; left: 40%; animation-delay: 1s; }
-        .cm-marker:nth-of-type(3) { top: 40%; right: 15%; animation-delay: 2s; }
+        .cm-marker:hover { background: var(--primary); color: white; transform: scale(1.1); animation: none; z-index: 5; }
+        .cm-marker:hover::after { border-color: var(--primary) transparent transparent transparent; }
+        
+        .cm-popup { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); opacity: 0; pointer-events: none; background: white; padding: 1.5rem; border-radius: 1.5rem; width: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 10; display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+        .cm-popup.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+        .cm-popup img { width: 100%; height: 160px; object-fit: cover; border-radius: 1rem; }
+        .cm-popup-close { position: absolute; top: 1rem; right: 1rem; width: 30px; height: 30px; background: rgba(0,0,0,0.5); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-fast); }
+        .cm-popup-close:hover { background: var(--primary); transform: scale(1.1); }
+        .cm-popup h3 { color: var(--text-main); font-size: 1.25rem; margin: 0; }
+        .cm-popup p { font-size: 0.9rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
         /* 4. Multi-step Enquiry Form */
         .enquiry-layout { display: flex; background: var(--bg-surface); border-radius: 2rem; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border-color); }
@@ -163,9 +172,19 @@
                         <button class="btn btn-outline" style="color:white; border-color:white;">Download Campus Map PDF</button>
                     </div>
                     <div class="cm-graphic">
-                        <div class="cm-marker">Sports Complex</div>
-                        <div class="cm-marker">Main Library</div>
-                        <div class="cm-marker">Science Lab</div>
+                        <div class="cm-image-wrapper">
+                            <img src="images/campus_map.jpeg" class="campus-bg" alt="Campus Map">
+                            <div class="cm-marker" style="top: 52%; left: 68%; animation-delay: 0s;" onclick="openMapPopup('Sports Complex', 'State-of-the-art facilities including indoor courts, a swimming pool, and expansive playing fields.', 'images/gymnasium.jpeg')">Sports Complex</div>
+                            <div class="cm-marker" style="top: 30%; left: 36%; animation-delay: 1s;" onclick="openMapPopup('Main Library', 'A vast collection of interactive and classic books tailored for early childhood development in a cozy environment.', 'images/library_reading.jpeg')">Main Library</div>
+                            <div class="cm-marker" style="top: 65%; left: 78%; animation-delay: 2s;" onclick="openMapPopup('Science Lab', 'Hands-on discovery zones where young minds explore basic physics, biology, and natural wonders.', 'images/science_lab.jpeg')">Science Lab</div>
+                            
+                            <div class="cm-popup" id="mapPopup">
+                                <div class="cm-popup-close" onclick="closeMapPopup()"><i class="fa-solid fa-xmark"></i></div>
+                                <img src="" id="popupImg" alt="Location Image">
+                                <h3 id="popupTitle">Title</h3>
+                                <p id="popupDesc">Description</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -334,5 +353,16 @@
     <button class="back-to-top" id="backToTop" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script src="js/main.js"></script>
+    <script>
+        function openMapPopup(title, desc, imgSrc) {
+            document.getElementById('popupTitle').innerText = title;
+            document.getElementById('popupDesc').innerText = desc;
+            document.getElementById('popupImg').src = imgSrc;
+            document.getElementById('mapPopup').classList.add('active');
+        }
+        function closeMapPopup() {
+            document.getElementById('mapPopup').classList.remove('active');
+        }
+    </script>
 </body>
 </html>

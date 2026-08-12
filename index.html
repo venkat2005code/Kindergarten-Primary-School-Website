@@ -22,7 +22,7 @@
         
         /* 1. Curved Layered Hero */
         .idx-hero {
-            position: relative; padding: 180px 0 100px;
+            position: relative; padding: 120px 0 100px;
             background: linear-gradient(135deg, var(--bg-surface-alt) 0%, var(--bg-surface) 100%);
             overflow: hidden;
         }
@@ -49,9 +49,9 @@
         .bento-content { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
         .bento-content h3 { color: white; }
         .bento-1 { grid-column: span 2; grid-row: span 2; }
-        .bento-2 { grid-column: span 2; grid-row: span 1; background: var(--primary); display: flex; flex-direction: column; justify-content: center; padding: 2rem; color: white; }
+        .bento-2 { grid-column: span 2; grid-row: span 1; }
         .bento-3 { grid-column: span 1; grid-row: span 1; }
-        .bento-4 { grid-column: span 1; grid-row: span 1; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-direction: column; color: white; text-align: center; }
+        .bento-4 { grid-column: span 1; grid-row: span 1; }
 
         /* 3. Curved Learning Pathway */
         .pathway-container { position: relative; padding: 4rem 0; }
@@ -105,6 +105,21 @@
             .path-step, .path-step:nth-child(even) { flex-direction: column; }
         }
     </style>
+
+  <style>
+    /* Full Height Hero Fix */
+    .idx-hero {
+      min-height: calc(100vh - 80px) !important;
+      display: flex !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      align-items: center !important;
+    }
+    .idx-hero > .container {
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -209,16 +224,18 @@
                 
                 <div class="bento-grid">
                     <div class="bento-item bento-1 reveal-left">
-                        <img src="images/science_lab.jpeg" alt="Smart Classroom">
+                        <img src="images/smart_classrooms.png" alt="Smart Classroom">
                         <div class="bento-content">
                             <h3 class="text-xl">Smart Classrooms</h3>
                             <p>Technology-enabled interactive learning environments.</p>
                         </div>
                     </div>
                     <div class="bento-item bento-2 reveal">
-                        <i class="fa-solid fa-trophy" style="font-size: 2.5rem; margin-bottom:1rem; opacity:0.8;"></i>
-                        <h3 class="text-2xl font-bold" style="color:white; margin-bottom:0.5rem;"><span class="counter" data-target="25">0</span>+ Years</h3>
-                        <p style="opacity:0.9;">Of academic excellence and shaping young minds.</p>
+                        <img src="images/years_excellence.png" alt="25+ Years of Excellence">
+                        <div class="bento-content">
+                            <h3 class="text-2xl font-bold" style="color:white; margin-bottom:0.5rem;"><i class="fa-solid fa-trophy" style="font-size: 1.5rem; margin-right: 0.5rem;"></i><span class="counter" data-target="25">0</span>+ Years</h3>
+                            <p style="opacity:0.9;">Of academic excellence and shaping young minds.</p>
+                        </div>
                     </div>
                     <div class="bento-item bento-3 reveal-right">
                         <img src="images/library_reading.jpeg" alt="Library">
@@ -227,13 +244,9 @@
                         </div>
                     </div>
                     <div class="bento-item bento-4 reveal">
-                        <i class="fa-solid fa-bus" style="font-size: 2.5rem; margin-bottom:1rem;"></i>
-                        <h3 class="text-xl" style="color:white;">Safe Transport</h3>
-                    </div>
-                    <div class="bento-item bento-3 reveal">
-                        <img src="images/playground.jpeg" alt="Playground">
+                        <img src="images/safe_transport.png" alt="Safe Transport">
                         <div class="bento-content">
-                            <h3 class="text-lg">Active Sports</h3>
+                            <h3 class="text-xl" style="color:white;"><i class="fa-solid fa-bus" style="margin-right:0.5rem;"></i>Safe Transport</h3>
                         </div>
                     </div>
                 </div>

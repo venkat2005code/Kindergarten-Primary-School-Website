@@ -219,7 +219,7 @@
     cursor: pointer; transition: var(--transition-normal); font-size: 1.1rem;
   }
   .tool-btn:hover { background: var(--bg-main); color: var(--primary); transform: rotate(15deg); }
-  .lang-toggle { width: auto; padding: 0 1rem; border-radius: 20px; font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; }
+  .lang-toggle { font-family: var(--font-heading); font-weight: 700; font-size: 0.8rem; }
   .lang-toggle:hover { transform: translateY(-2px) rotate(0); }
   .mobile-menu-toggle { display: none; }
   

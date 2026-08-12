@@ -14,7 +14,10 @@
         /* 1. Editorial Magazine Hero */
         .editorial-hero { 
             position: relative; 
-            padding: 200px 0 150px; 
+            padding: 150px 0; 
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
             background: url('images/about_hero.png') center/cover;
         }
         .editorial-hero::before {
@@ -30,7 +33,7 @@
         .ed-hero-sub p { color: rgba(255,255,255,0.9); }
         
         /* 2. School History Timeline (Vertical Winding) */
-        .history-timeline { position: relative; max-width: 800px; margin: 4rem auto; padding: 2rem 0; }
+        .history-timeline { position: relative; max-width: 800px; margin: 2rem auto; padding: 0; }
         .history-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: var(--bg-surface-alt); transform: translateX(-50%); border-radius: 4px; }
         .ht-item { display: flex; justify-content: flex-end; padding-right: 50%; position: relative; margin-bottom: 4rem; }
         .ht-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
